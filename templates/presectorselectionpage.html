@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Pre Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        /* General Styles */
+         body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: #082142;
+            padding: 20px;
+            color: whitesmoke;
+            height: 110vh;
+        }
+
+        .sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            
+            margin-left: 29%;
+            text-align: left;
+        }
+
+        .sector-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sector-item {
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 5%;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid whitesmoke; /* Add line between sector items */
+        }
+
+        .sector-item:last-child {
+            border-bottom: none; /* Remove line after last sector item */
+        }
+
+        .sector-item:hover {
+            background-color: rgba(255, 255, 255, 0.137);
+        }
+
+        .sector-item a {
+            text-decoration: none; /* Remove underline */
+            color: whitesmoke; /* Set link color */
+        }
+
+        .sector-item a:hover {
+            color: whitesmoke; /* Set link hover color */
+        }
+
+        /* Page Content */
+        .content {
+            flex: 3;
+            padding: 20px;
+        }
+
+        .content h2 {
+            margin-top: 0;
+        }
+        .heading-container {
+            background-image: url("image/picture\ \(2\).jpg");
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: -15px;
+            margin-left: -3%;
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+        @media screen and (max-width: 600px) {
+            /* Adjustments for screens larger than 768px (tablets and desktops) */
+            .container {
+                flex-direction: row; /* Display items side by side on larger screens */
+                height: auto; /* Revert to auto height */
+            }
+
+            .sidebar {
+                flex: 1; /* Make sidebar take up 1/3 of the container */
+                position: relative;
+                width: auto;
+                height: 210vh;
+                 /* Add border between sidebar and content */
+                overflow-y: auto;
+            }
+            .sidebar h1 {
+             font-size: 24px;
+             margin-bottom: 20px;
+              text-align: left; /* Align the heading text to the left */
+                margin-left: 10px; /* Add some left margin for better spacing */
+}
+
+             .heading-container{
+            background-image: none;
+            }
+
+            .content {
+                flex: 3; /* Make content take up 2/3 of the container */
+                overflow-y: hidden; /* Disable vertical scrolling */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+<!--        <img src="static/logo_light.png" alt="Logo" class="logo">-->
+        <h1> Upload Pre Data </h1>
+        <ul class="sector-list">
+            <li class="sector-item" onclick="loadSector('presector1.html')">Sector 1</li>
+            <li class="sector-item" onclick="loadSector('presector2.html')">Sector 2</li>
+            <li class="sector-item" onclick="loadSector('presector3.html')">Sector 3</li>
+            <a href="/welcomeuser"><li class="sector-item" ><h1> ◀ Home </h1></li> </a>
+            </ul>
+    </div>
+
+    <div class="content" id="sectorContent">
+        <!-- Initial content -->
+        <h2>Sector Information</h2>
+        <!-- Content of presector1.html or presector2.html will be loaded here initially -->
+    </div>
+</div>
+
+<script>
+    // Common function for storing image file and displaying filename
+    let imagesFile = {};
+    function storeImageFile(file, inputId) {
+        imagesFile[inputId] = file;
+        displayFileName(inputId, inputId.replace("Sec", "ImageSec"));
+    }
+
+    function displayFileName(inputId, spanId) {
+        const input = document.getElementById(inputId);
+        const fileNameSpan = document.getElementById(spanId);
+        if (input.files.length > 0) {
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            fileNameSpan.textContent = "";
+        }
+    }
+
+        function loadSector(sectorUrl) {
+            // Get the site_code parameter from the URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var siteCode = urlParams.get('site_code');
+
+            // Append the site_code parameter to the sectorUrl
+            var urlWithSiteCode = sectorUrl + '?site_code=' + siteCode;
+
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('sectorContent').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open('GET', urlWithSiteCode, true);
+            xhr.send();
+        }
+
+
+        function submitForm1() {
+            const formData = new FormData();
+
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach((input) => {
+                const file = input.files[0];
+                formData.append(input.name, file);
+            });
+
+            fetch("/upload-images-1", {
+                method: "POST",
+                body: formData,
+            })
+            .then((response) => {
+                if (response.ok) {
+                    if (window.innerWidth <= 600) {
+                        // Display mobile view success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Successfully uploaded images for sector-1',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        // Display web view success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Successfully uploaded images for sector-1',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Please select correct image',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+        }
+
+        // Load presector1.html by default when the page loads
+        window.onload = function() {
+            loadSector('presector1.html');
+        }
+
+
+
+    // Function for submitting form for presector2.html
+  function submitForm2() {
+  const formData = new FormData();
+
+  const fileInputs = document.querySelectorAll('input[type="file"]');
+  fileInputs.forEach((input) => {
+    const file = input.files[0];
+    formData.append(input.name, file);
+  });
+
+  fetch("/upload-images-2", {
+    method: "POST",
+    body: formData,
+  })
+  .then((response) => {
+    if (response.ok) {
+      // Display success message using SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Successfully uploaded images for sector-2',
+        confirmButtonText: 'OK',
+        onClose: () => {
+          // Redirect to the next page after closing the popup
+<!--          window.location.href = "presector3.html";-->
+        }
+      });
+    } else {
+      // Display error message using SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Failed to upload images. Please try again later.',
+        confirmButtonText: 'OK'
+      });
+    }
+  })
+  .catch((error) => {
+    // Display error message using SweetAlert
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'An error occurred while uploading images.',
+      confirmButtonText: 'OK'
+    });
+    console.error("Error:", error);
+  });
+}
+
+
+    // Function for submitting form for postsector3.html
+  function submitForm3() {
+    if (window.innerWidth <= 600) {
+        // Display mobile view success message
+        document.getElementById("mobileSuccessMessage").style.display = "block";
+    } else {
+        // Display web view success message
+        document.getElementById("successMessage").style.display = "block";
+    }
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You want to submit the data?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, submit it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user clicks "OK", proceed with form submission and redirection
+            const formData = new FormData();
+
+            const fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach((input) => {
+                const file = input.files[0];
+                formData.append(input.name, file);
+            });
+
+            fetch("/upload-images-3", {
+                method: "POST",
+                body: formData,
+            })
+            .then((response) => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Successfully uploaded images for sector-3',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "postdata.html";
+                        }
+                    });
+                } else {
+                    throw new Error("Failed to redirect");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error uploading images',
+                });
+            });
+        } else {
+            // If user clicks "Cancel", do nothing
+            // Optionally, you can provide feedback to the user that the submission was canceled
+            Swal.fire('Submission canceled.', '', 'info');
+        }
+    });
+}
+
+
+</script>
+
+</body>
+</html>

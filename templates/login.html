@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        /* Existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .left-half {
+            flex: 1;
+            background-image: url('static/loginwave.png'); 
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            position: relative;
+        }
+        .right-half {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .right-image {
+            position: absolute;
+            top: 30%;
+            right: 45%;
+            transform: translateY(-50%);
+            max-height: 10%;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 400px;
+        }
+        label {
+            margin-top: 10px;
+            color: #666;
+        }
+        .input-container {
+            position: relative;
+            width: 100%;
+            height: 80%;
+            margin-bottom: 15px;
+            top: 115px;
+            align-content: center;
+            display: flex;
+            align-items: center;
+        }
+        .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            color: #555;
+        }
+        input {
+            flex:1;
+            padding: 8px 30px 8px 40px;
+            margin: 5px 0;
+            width: calc(100% - 40px);
+            box-sizing: border-box;
+        }
+        .login-box {
+            width: 50%;
+            height: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        button {
+            padding: 10px;
+            width: 40%;
+            background-color:#1976d2 ;
+            color: #fff;
+            margin-top: 120px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #1565c0;
+        }
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .heading-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .mobile-logo{
+            display: none;
+        }
+        .desktop-logo{
+            display: block;
+        }
+        @media only screen and (max-width: 600px) {
+           meta[name="viewport"] {
+                content: width=device-width, initial-scale=1.0;
+            }
+            .container {
+                position: fixed;
+                overflow: hidden;
+            }
+            .left-half {
+                display: none;
+            }
+            .right-half {
+                width: 130%;
+                display: block;
+                margin-align:center;
+                overflow: hidden;
+                position: relative;
+            }
+            .right-image {
+                position: absolute;
+                top: 25%;
+                left: 55%;
+                transform: translateX(-50%);
+                max-height: 70px;
+            }
+            .mobile-logo {
+                margin-left: 45%;
+                transform: translateX(-50%);
+            }
+            .mobile-logo {
+                display: block;
+                margin: 10px auto;
+                width: 100px;
+                height: auto;
+            }
+            .heading-container {
+                padding-top: 70px;
+            }
+            .login-box {
+                width: 80%;
+                margin-top: 120px;
+                height: auto;
+                margin-left: 10%;
+                overflow: hidden;
+                margin-right:10%;
+            }
+            .input-container {
+                height: auto;
+            }
+            input {
+                width: 100%;
+            }
+            button {
+                width: 30%;
+                margin-top: 60%;
+            }
+            .mobile-logo{
+                display: none;
+            }
+            .desktop-logo{
+                display: block;
+            }
+        }
+    </style>
+    <!-- Include SweetAlert2 CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="heading-container">
+        <img src="static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h1>Login</h1>
+    </div>
+    <div class="container">
+        <div class="left-half"></div>
+        <div class="right-half">
+            <div class="login-box">
+                <form action="/login" method="POST">
+                    <div class="data">
+                        <div class="input-container">
+                            <i class="icon fas fa-user"></i>
+                            <input type="email" id="email" name="email" placeholder="Enter email" required>
+                        </div>
+                        <div class="input-container">
+                            <i class="icon fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Enter password" required>
+                        </div>
+                    </div>
+                    <button type="submit">Login</button>
+                    <br>
+                    <a href="/request_reset_password">Forgot Password</a>
+                    <br>
+                    <a href="/register">Not registered yet?</a>
+                </form>
+                <div id="flash-messages" style="display: none;">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="flash-message" data-category="{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            <img src="static/avatar.svg" alt="Right Image" class="right-image">
+        </div>
+    </div><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    body: formData
+                });
+                const responseData = await response.json();
+                Swal.fire({
+                    icon: responseData.category === 'error' ? 'error' : 'success',
+                    title: responseData.message,
+                    showConfirmButton: false,
+                    timer: 2500
+                }).then((result) => {
+                    if (responseData.category === 'success') {
+                        window.location.href = responseData.redirect_url;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

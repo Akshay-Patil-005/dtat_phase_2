@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Data</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        /* Add your styling here */
+
+        html, body {
+            height: 100%; /* Ensure HTML and body elements take up the full height of the viewport */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3e5f5;
+            color: black; /* White text */
+            margin: 0;
+            padding: 0px;
+
+        }
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        h2 {
+
+            text-align: center;
+            color: white;
+        }
+        table {
+
+           margin-top: 5%;
+           border: 2px solid #ddd;
+           border-radius: 10px; /* Add rounded corners to the table */
+           overflow: hidden;
+            width: 60%;
+            margin-left: 20%;
+
+        }
+        button:hover{
+            background-color:#1565c0
+            ;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            color: #333333;
+        }
+        th {
+            background-color: #4285f4;;
+            color: white;
+            text-align: center;
+        }
+        button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-left: 35%;
+        }
+        td:first-child {
+            width: 45%;  /* Adjust the width for the Sr No. column */
+        }
+        .mobile-logo{
+            display: none;
+        }
+        .desktop-logo{
+            display: block;
+        }
+
+
+        td:nth-child(2) {
+            width: 45%;  /* Adjust the width for Field and Value columns */
+        }
+        button{
+            margin-top: 10%;
+            margin-left: 50%;
+            border-radius: 25px;
+            width: 8%;
+        }
+        .heading-container {
+            background-image: url("static/bluewhite.jpg");
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            padding: 20px;
+            text-align: center;
+        }
+        .nav-links {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: blue; /* Change color to blue */
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f0f0f0; /* Hover background color */
+        }
+        .form-container {
+            margin-top: 20px; /* Adjust margin-top */
+            max-width: 400px;
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #e0e0e0;
+            position: relative;
+        }
+        .table-container {
+            padding: 20px;
+            display: none; /* Initially hidden */
+        }
+        #submit1{
+            width: 23%;
+            margin-left: 30%;
+        }
+        #siteId{
+            margin-left: 20%;
+        }
+        #view{
+            margin-left: 45%;
+        }
+        #sector{
+            margin-left: 20%;
+        }
+        .web-heading {
+            display: block; /* Hide h2 on mobile */
+          }
+          .mobile-heading{
+            display: none;
+          }
+          .error-message {
+            color: red;
+        }
+
+
+
+        @media screen and (max-width: 600px) {
+
+            /* CSS for mobile view */
+            button#submit1 {
+                width: 40%; /* Adjust button width for mobile */
+                margin-top: 10px; /* Add margin-top for proper spacing */
+                margin-left: auto; /* Center the button horizontally */
+                margin-right: auto; /* Center the button horizontally */
+                display: block; /* Display the button as a block element */
+              }
+            .web-heading {
+                display: none; /* Hide h2 on mobile */
+              }
+            .table-container {
+                padding: 20px;
+                overflow-x: auto; /* Add horizontal scroll for small screens */
+            }
+            .mobile-logo {
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                width: 75px; /* Adjust width as needed */
+                height: auto; /* Maintain aspect ratio */
+            }
+            .desktop-logo{
+                display: none;
+            }
+
+
+            table {
+                width: 60%; /* Adjust table width to fit the screen */
+            }
+            .error-message {
+                color: red;
+            }
+
+            #view {
+                margin-top: 20px; /* Adjust margin-top for proper spacing */
+                margin-left: auto; /* Center the button horizontally */
+                margin-right: auto; /* Center the button horizontally */
+                display: block; /* Display the button as a block element */
+                width: 40%; /* Adjust button width */
+            }
+            .mobile-heading {
+                display: block; /* Display h4 on mobile */
+                font-family: sans-serif;
+                font-size: 25px; /* Adjust font size as needed */
+                font-weight: bold;
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 10px;
+                animation: back 20s linear infinite;
+                margin-top: 15%;
+                margin-left: 12%;
+              }
+              .heading-container {
+                background-image: none;
+                background-color: #0D47A1;
+                padding: 0px;
+                text-align: center;
+                margin-bottom: 10px;
+                position: relative;
+            }
+            .logo {
+                top: 10px;
+                left: 10px;
+                width: 70px;
+                height: auto;
+            }
+            h4{
+                color: white;
+            }
+            .form-container{
+                width: 70%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading">  Uploaded Post Data From Admin </h2>
+        <h4 class="mobile-heading"> Uploaded Post Data From Admin  </h4>
+    </div>
+        <div class="all">
+        <div class="nav-links">
+            <div class="dropdown" onclick="toggleProfileDropdown()">
+                <a href="/welcomeuser"> Home </a>
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content" id="profileDropdownContent">
+            
+                    <a href="/Userdetails">My Details</a>
+                    <a href="/request_reset_password">Change Password</a>
+                    <a href="/welcome">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="form-container">
+    <form id="siteForm" method="POST" action="/postdata.html" onsubmit="displayTable(event)">
+        <label for="siteId">Select Site ID:</label>
+        <select id="siteId" name="siteId" class="dropdown">
+            <option value="Select Circle">-- Select Site ID --</option>
+            {% for site_code in site_codes %}
+            <option value="{{ site_code }}">{{ site_code }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="sector">Select Sector:</label>
+        <select id="sector" name="sector" class="dropdown">
+            <option value="Select Sector">-- Select Sector --</option>
+            <option value="sector1">sector 1</option>
+            <option value="sector2">sector 2</option>
+            <option value="sector3">sector 3</option>
+        </select>
+        <br>
+        <p class="error-message" id="errorMessage" style="display: none;">Please select the site ID as well as the sector</p>
+        <button type="submit" id="submit1">Submit</button>
+    </form>
+</div>
+
+<div class="table-container" id="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be added dynamically here -->
+        </tbody>
+    </table>
+    <button id="view" onclick="redirectToPostSectorSelection()"> Viewed </button>
+</div>
+    <script>
+        function redirectToPostSectorSelection() {
+            // Extract the SiteID from the selected option in the dropdown
+            var siteId = document.getElementById("siteId").value;
+            if (siteId) {
+                // Construct the URL with the SiteID parameter
+                var url = 'postsectorselection.html?SiteID=' + siteId;
+
+                // Redirect to the postsectorselection.html page with the SiteID parameter
+                window.location.href = url;
+            } else {
+                alert("Please select a Site ID.");
+            }
+        }
+        // Function to fetch site IDs from Firestore
+        function fetchSiteIds() {
+            fetch('/fetch_siteId')
+                .then(response => response.json())
+                .then(data => {
+                    const siteIdDropdown = document.getElementById('siteId');
+                    // Clear existing options
+                    siteIdDropdown.innerHTML = '<option value="">-- Select Site-ID --</option>';
+                    // Add new options
+                    data.forEach(siteId => {
+                        const option = document.createElement('option');
+                        option.value = siteId;
+                        option.textContent = siteId;
+                        siteIdDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching site IDs:', error));
+        }
+
+        // Call the fetchSiteIds function when the page loads
+        window.onload = fetchSiteIds;
+
+        function toggleActivityDropdown() {
+            var activityDropdownContent = document.getElementById("activityDropdownContent");
+            var profileDropdownContent = document.getElementById("profileDropdownContent");
+            if (activityDropdownContent.style.display === "block") {
+                activityDropdownContent.style.display = "none";
+            } else {
+                activityDropdownContent.style.display = "block";
+                // Close profile dropdown if it's open
+                profileDropdownContent.style.display = "none";
+            }
+        }
+          function displayTable(event) {
+                event.preventDefault();
+                var siteId = document.getElementById("siteId").value;
+                var sector = document.getElementById("sector").value;
+
+                if (siteId && sector) {
+                 fetch('/postdata.html', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            'siteId': siteId,
+                            'sector': sector
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        var table = document.querySelector("#table-container table tbody");
+                        table.innerHTML = ''; // Clear existing rows
+                        for (var field in data) {
+                            table.innerHTML += `
+                                <tr>
+                                    <td>${field}</td>
+                                    <td>${data[field]}</td>
+                                </tr>
+                            `;
+                        }
+                        document.querySelector(".table-container").style.display = "block";
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+                } else {
+                    alert("Please select both Site ID and Sector.");
+                }
+            }
+
+        function toggleProfileDropdown() {
+            var profileDropdownContent = document.getElementById("profileDropdownContent");
+            var activityDropdownContent = document.getElementById("activityDropdownContent");
+            if (profileDropdownContent.style.display === "block") {
+                profileDropdownContent.style.display = "none";
+            } else {
+                profileDropdownContent.style.display = "block";
+                // Close activity dropdown if it's open
+                activityDropdownContent.style.display = "none";
+            }
+        }
+        function viewData() {
+            // Implement logic to view data for all functionalities
+            alert("Viewing data for all functionalities...");
+        }
+    </script>
+
+
+</body>
+</html>

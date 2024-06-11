@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+    <title>Project Management</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+      body{
+      background-color: #f3e5f5;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto; /* Center the form */
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-row {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap onto the next line */
+}
+
+.form-row label,
+.form-row select {
+  flex: 1 1 100%; /* Allow items to grow, shrink, and start on a new line */
+  margin-right: 10px; /* Adjust spacing between elements */
+}
+
+input[type="text"],
+select {
+  width: 100%; /* Make input fields full width */
+}
+
+    label {
+      display: inline-block;
+      width: 120px; /* Fixed width for labels */
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select {
+      width: calc(67% - 60px); /* Adjust for label and margin width */
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 0;
+      border-radius: 3px;
+      cursor: pointer;
+      display: block;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .form-row {
+      display: flex;
+    }
+
+    .form-row label,
+    .form-row select {
+      flex: 1;
+      margin-right: 10px; /* Adjust spacing between elements */
+    }
+
+    .table-container {
+      margin-top: 50px; /* Space between form and table */
+      margin-left: 50px; /* Adjust the left margin for the table */
+    }
+
+    table {
+      width: 90%;
+      border-collapse: collapse;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color:#4285f4;
+      color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+      background-color: #ddd;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #1976d2;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 25px;
+      margin-right: 10px;
+    }
+
+    .desktop-logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 90px; /* Adjust width as needed */
+      height: auto; /* Maintain aspect ratio */
+    }
+    .mobile-logo{
+      display: none;
+    }
+    h2{
+      color: white;
+    }
+    .nav-links {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+  }
+  .nav-links a {
+      margin-left: 20px;
+      color: white;
+      text-decoration: none;
+  }
+  .nav-links a:hover {
+      text-decoration: underline;
+  }
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      right: 0;
+  }
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  .dropdown-content a {
+      color: blue; /* Change color to blue */
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+  }
+  .dropdown-content a:hover {
+      background-color: #f0f0f0; /* Hover background color */
+  }
+
+    .heading-container {
+      background-image: url("static/picture.jpg");
+      background-size: cover; /* Cover the entire background */
+      background-repeat: no-repeat; /* Prevent background image from repeating */
+      padding: 20px;
+      text-align: center;
+
+  }
+
+    #submit {
+      padding: 10px;
+      background-color: #1976d2;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      width: 20%;
+      border-radius: 25px;
+      margin-right: 10px;
+    }
+    #submit1{
+        padding: 10px;
+      background-color: #1976d2;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      width: 10%;
+      border-radius: 25px;
+      margin-right: 10px;
+      margin-top: 5%;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    .submit-cancel-buttons button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    }
+
+
+    #employee {
+      width: 20%;
+    }
+    input[type="text"].site-code,
+    input[type="text"].latitude,
+    input[type="text"].longitude,
+    input[type="date"] {
+    width: auto; /* Adjust for label and margin width */
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    }
+    .project-input {
+            width: 250px; /* Adjust as needed */
+            display: inline-block; /* Allow wrapping */
+        }
+
+        /* Adjust the width of latitude and longitude inputs */
+        .latitude,
+        .longitude {
+            width: 100px; /* Adjust as needed */
+        }
+    label.site-code-label,
+    label.latitude-label,
+    label.longitude-label {
+      width: auto;
+      margin-bottom: 5px;
+    }
+
+    .site-code-container,
+    .latitude-container,
+    .longitude-container {
+      margin-bottom: 15px;
+    }
+    .submit{
+        margin-left: 45%;
+        margin-top: 40%;
+    }
+    .desktop-logo{
+      display: block;
+    }
+    mobile-logo{
+      display: none;
+    }
+    .web-heading{
+      display: block;
+    }
+    .mobile-heading{
+      display: none;
+    }
+    .allocate,
+    .cancel {
+    width: 100%; /* Set both buttons to be full width of the container */
+    padding: 10px; /* Add padding for better appearance */
+    background-color: #1976d2; /* Background color */
+    color: #fff; /* Text color */
+    border: none; /* Remove border */
+    cursor: pointer;
+    border-radius: 25px; /* Rounded corners */
+    margin-top: 5px; /* Adjust margin between buttons */
+    box-sizing: border-box;
+    }
+    @media screen and (max-width: 600px) {
+      .container {
+        max-width: 100%; /* Adjust width to full width on mobile */
+        margin: 20px auto; /* Adjust margin for better centering on mobile */
+        padding: 10px; /* Reduce padding for smaller screens */
+      }
+      .mobile-heading {
+        display: block; /* Display h4 on mobile */
+        font-family: sans-serif;
+        font-size: 25px; /* Adjust font size as needed */
+        font-weight: bold;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 10px;
+        animation: back 20s linear infinite;
+        margin-top: 5%;
+        margin-left: 12%;
+      }
+      .mobile-heading::before {
+        content: attr(REFL-TEXT);
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotateX(180deg);
+        line-height: 52px;
+      }
+
+      .form-row {
+        flex-direction: column; /* Change to a column layout on smaller screens */
+        width: auto;
+      }
+
+      label {
+        width: auto; /* Allow labels to take up full width on smaller screens */
+      }
+
+      input[type="text"],
+      select {
+        width: 100%; /* Make input fields full width on smaller screens */
+      }
+
+      button[type="submit"] {
+        width: 100%; /* Make submit button full width on smaller screens */
+      }
+
+      .table-container {
+        margin-top: 20px; /* Reduce space between form and table on smaller screens */
+        margin-left: 0; /* Adjust the left margin for the table */
+      }
+
+      table {
+        width: 100%; /* Make table full width on smaller screens */
+      }
+
+      .heading-container {
+        background-image: none;
+        background-color: #0D47A1;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    .mobile-logo {
+      display: block;
+        top: 10px;
+        left: 10px;
+        width: 70px;
+        height: auto;
+    }
+    h4{
+        color: white;
+    }
+      .nav-links {
+        top: 3%; /* Adjust top position for navigation links */
+        right: 3%; /* Adjust right position for navigation links */
+      }
+
+      .submit {
+        margin-left: 40%; /* Adjust margin for submit button */
+        margin-top: 20px; /* Adjust margin for submit button */
+      }
+      .table-container {
+        margin-top: 20px; /* Reduce space between form and table on smaller screens */
+        margin-left: 0; /* Adjust the left margin for the table */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        max-width: calc(100% - 40px); /* Adjust maximum width to fit screen */
+        padding-bottom: 10px; /* Add some bottom padding to prevent overlapping */
+      }
+      #employee{
+         width: 100%;
+      }
+
+      table {
+        width: 100%; /* Make table full width on smaller screens */
+        min-width: 600px; /* Set a minimum width to prevent horizontal overflow */
+      }
+      .desktop-logo{
+        display: none;
+      }
+
+      .web-heading{
+        display: none;
+      }
+      .mobile-heading{
+        display: block;
+      }
+      #submit {
+        width: 40%; /* Make button full width */
+        margin-top: 20px; /* Adjust margin */
+      }
+      /* Adjust margin for the second submit button */
+      #submit1 {
+        width: 40%; /* Make button full width */
+        margin-top: 20px; /* Adjust margin */
+        margin-left: 25%;
+      }
+      .allocate,
+      .cancel {
+        width: 100%; /* Set both buttons to be full width of the container */
+        padding: 10px; /* Add padding for better appearance */
+        background-color: #1976d2; /* Background color */
+        color: #fff; /* Text color */
+        border: none; /* Remove border */
+        cursor: pointer;
+        border-radius: 25px; /* Rounded corners */
+        margin-top: 5px; /* Adjust margin between buttons */
+        box-sizing: border-box;
+      }
+      }
+
+    </style>
+    <script>
+        function populateEmployeeDropdown() {
+        var circle = document.getElementById("project").value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/getEmployees?circle=" + circle, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var employees = JSON.parse(xhr.responseText);
+                var dropdown = document.getElementById("employee");
+                dropdown.innerHTML = ""; // Clear existing options
+                employees.forEach(function(employee) {
+                    var option = document.createElement("option");
+                    option.text = employee;
+                    option.value = employee;
+                    dropdown.add(option);
+                });
+            }
+        };
+        xhr.send();
+    }
+    </script>
+  </head>
+  <body>
+  <div class="heading-container">
+    <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+    <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+    <h2 class="web-heading">Task Allocation</h2>
+    <h4 class="mobile-heading"> Task Allocation</h4>
+    </div>
+
+    <div class="all">
+        <div class="nav-links">
+          <a href="./welcomeadmin">Home</a>
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="#" class="dropbtn">Activity</a>
+                <!-- Adding sub-options under "Activity" -->
+                <div class="dropdown-content" id="activityDropdownContent">
+                    <a href="/projectallocation">Task Allocation</a>
+                    <a href="/admintaskStatus">Task Status</a>
+                </div>
+            </div>
+            <div class="dropdown" onclick="toggleProfileDropdown()">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content" id="profileDropdownContent">
+                    <a href="/Userdetails">My Details</a>
+                    <a href="/request_reset_password">Change Password</a>
+                    <a href="/welcome">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <form id="allocation-form">
+        <div class="form-row">
+          <label for="project-name">Project Name:</label>
+          <input
+            type="text"
+            id="project-name"
+            name="project-name"
+            value="{{ request.args.get('project', 'Your Project Name')}}"
+            disabled
+          />
+        </div>
+
+        <div class="form-row">
+          <label for="employee">Employee:</label>
+            <select id="employee" name="employee">
+              <option value="Select Circle" disabled selected>-- Select Employee--</option>
+              {% for name in employee_names %}
+                <option value="{{ name }}">{{ name }}</option>
+              {% endfor %}
+            </select>
+        </div>
+
+<p class="error-message" id="errorMessage" style="display: none;color:red ">Please select employee  </p>
+
+
+        <button type="submit" id="submit" onclick="submitIssue()" >Submit</button>
+      </form>
+    </div>
+
+    <form method="GET" action="fillpostdata">
+    <div class="table-container">
+      <table id="allocation-table">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Project</th>
+            <th>Employee Name</th>
+            <th>Site Code</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Allocated Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+        <div id="successMessage" style="display: none; text-align: center; margin-top: 10px; color: green;">
+        Data successfully submitted!
+    </div>
+    <button type="submit" id="submit1"  class="submit">
+        Save Table Data
+    </button>
+    </form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+    <script>
+      document.getElementById("allocation-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const projectName = document.getElementById("project-name").value;
+    const employeeName = document.getElementById("employee").value;
+    const tableBody = document.querySelector("#allocation-table tbody");
+    const errorContainer = document.getElementById('errorMessage');
+
+if (employeeName === "Select Circle") {
+    errorContainer.style.display = 'block'; // Display error message
+    return; // Stop further execution
+  } else {
+    errorContainer.style.display = 'none'; // Hide error message if employee is selected
+  }
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+        <td>${tableBody.children.length + 1}</td>
+        <td>${projectName}</td>
+        <td>${employeeName}</td>
+        <td><input type="text" class="site-code" name="site-code"></td>
+        <td><input type="text" class="latitude" name="latitude"></td>
+        <td><input type="text" class="longitude" name="longitude"></td>
+        <td><input type="date" name="allocated-date" id="allocated-date"></td>
+        <td class="submit-cancel-buttons">
+            <button class="Allocate" onclick="allocateTask(event, '${employeeName}', '${projectName}')"> Allocate </button>
+            <button class="cancel" onclick="cancelAllocation(this)">Cancel</button>
+        </td>
+    `;
+    tableBody.appendChild(newRow);
+    document.getElementById("employee").querySelector(`option[value="${employeeName}"]`).disabled = true;
+});
+
+    document.getElementById("submit1").addEventListener("click", function(event) {
+     document.getElementById("successMessage").style.display = "block";
+
+    window.location.href = "templates/fillpostdata.html";
+  });
+
+  function submitIssue() {
+  var selectProject = document.getElementById("selectCircle").value;
+  if(employee === "Select Circle"){
+    errorContainer.innerHTML += "Please select a employee.<br>";
+  }
+  else{
+    displayTable(event);
+  }
+}
+
+function allocateTask(event, employeeName, projectName) {
+    event.preventDefault();
+
+    const row = event.target.closest("tr");
+    const siteCode = row.querySelector(".site-code").value;
+    const latitude = row.querySelector(".latitude").value;
+    const longitude = row.querySelector(".longitude").value;
+    const allocatedDate = row.querySelector('[name="allocated-date"]').value;
+
+    if (siteCode === "") {
+        swal("Error!", "Site Code can't be null", "error");
+        return;
+    }
+
+    if (latitude === "") {
+        swal("Error!", "Latitude can't be null", "error");
+        return;
+    }
+
+    if (longitude === "") {
+        swal("Error!", "Longitude can't be null", "error");
+        return;
+    }
+
+    if (allocatedDate === "") {
+          swal("Error!", "Allocated date can't be null", "error");
+        return;
+    }
+
+    // Parse URL to extract query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const nameCircle = urlParams.get('nameCircle');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/saveTableData");
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            swal({
+                title: "Success!",
+                text: `Task allocated to ${employeeName}`,
+                icon: "success",
+                button: "OK",
+            });
+        } else {
+            console.error(xhr.responseText);
+            swal("Error!", "Failed to allocate task", "error");
+        }
+    };
+    xhr.send(JSON.stringify({
+        AssignedEmployee: employeeName,
+        siteCode: siteCode,
+        Latitude: latitude,
+        Longitude: longitude,
+        AllocatedDate: allocatedDate,
+        ProjectName: projectName,
+        CircleName: nameCircle // Adding nameCircle parameter here
+    }));
+}
+
+
+
+      function cancelAllocation(button) {
+        // Remove the parent row of the button clicked
+        const row = button.closest("tr");
+        row.parentNode.removeChild(row);
+
+        const employeeName = row.querySelector("td:nth-child(3)").textContent;
+        document
+          .getElementById("employee")
+          .querySelector(`option[value="${employeeName}"]`).disabled = false;
+
+       swal("Error!", " Task Cancelled ", "error");
+      }
+
+      function populateEmployeeDropdown() {
+            var circle = document.getElementById("project-name").value;
+            console.log(circle);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/getEmployees", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var employees = JSON.parse(xhr.responseText);
+                    var dropdown = document.getElementById("employee");
+                    dropdown.innerHTML = ""; // Clear existing options
+                    employees.forEach(function(employee) {
+                        var option = document.createElement("option");
+                        option.text = employee;
+                        option.value = employee;
+                        dropdown.add(option);
+                    });
+                }
+            };
+            xhr.send("project=" + circle);
+        }
+
+        // Call populateEmployeeDropdown() when the page loads
+        window.onload = populateEmployeeDropdown;
+
+
+        function displayTable(event) {
+        event.preventDefault();
+        // Your code to display the table goes here
+        // This could include adding rows to the table, etc.
+
+        // Redirect to another HTML file after displaying the table
+        window.location.href = "fillpostdata.html";
+      }
+       function toggleActivityDropdown() {
+    var activityDropdownContent = document.getElementById("activityDropdownContent");
+    var profileDropdownContent = document.getElementById("profileDropdownContent");
+    if (activityDropdownContent.style.display === "block") {
+        activityDropdownContent.style.display = "none";
+    } else {
+        activityDropdownContent.style.display = "block";
+        // Close profile dropdown if it's open
+        profileDropdownContent.style.display = "none";
+    }
+}
+
+      function toggleProfileDropdown() {
+    var profileDropdownContent = document.getElementById("profileDropdownContent");
+    var activityDropdownContent = document.getElementById("activityDropdownContent");
+    if (profileDropdownContent.style.display === "block") {
+        profileDropdownContent.style.display = "none";
+    } else {
+        profileDropdownContent.style.display = "block";
+        // Close activity dropdown if it's open
+        activityDropdownContent.style.display = "none";
+    }
+}
+    </script>
+
+
+  </body>
+</html>

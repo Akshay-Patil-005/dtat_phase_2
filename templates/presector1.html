@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sector-1 Image Upload</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 2%;
+      }
+
+      th,
+      td {
+        border: 1px solid whitesmoke;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4285f4;
+        color: whitesmoke;
+      }
+
+      td:first-child {
+        width: 45%; /* Adjust the width for the Sr No. column */
+      }
+
+      td:nth-child(2) {
+        width: 45%; /* Adjust the width for Field and Value columns */
+      }
+      .heading-container {
+        background-image: url("static/picture.jpg");
+        background-size: cover; /* Cover the entire background */
+        background-repeat: no-repeat; /* Prevent background image from repeating */
+        padding: 20px;
+        text-align: center;
+      }
+
+      button {
+        float: left;
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px;
+        text-align: left;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 30px;
+        border-radius: 25px;
+        margin-right: 5px;
+      }
+
+      button:hover {
+        background-color: #1565c0;
+      }
+
+      /* Hide the file input */
+      input[type="file"] {
+        display: none;
+      }
+
+      #submitButton {
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 25px;
+        margin-right: 5px;
+        margin-left: 47%;
+        margin-top: 5%;
+      }
+
+      #submitButton:hover {
+        background-color: #1565c0;
+      }
+
+      h1 {
+        text-align: center;
+        color: white;
+      }
+
+      th {
+        text-align: center;
+      }
+
+      td {
+        text-align: center;
+      }
+
+      img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+      body {
+        background-color: #f3e5f5;
+      }
+      .logo {
+        position: absolute;
+        top: 10px;
+        left: 50px;
+        width: 100px; /* Adjust width as needed */
+        height: auto; /* Maintain aspect ratio */
+      }
+      #mobileSuccessMessage{
+         display: none;
+      }
+
+      @media only screen and (max-width: 600px) {
+        table {
+        font-size: 14px;
+        }
+        .heading-container {
+          background-color: #0D47A1;
+          background-size: cover; /* Cover the entire background */
+          background-repeat: no-repeat; /* Prevent background image from repeating */
+          padding: 20px;
+          text-align: center;
+          }
+
+        th, td {
+        padding: 6px;
+        }
+        .heading-container{
+        background-image: none;
+        background-color: #0D47A1;
+
+        }
+        .logo {
+        display: none; /* Hide the logo image on mobile devices */
+        }
+        }
+
+
+        @media only screen and (max-width: 600px) {
+          #submitButton {
+            position: relative; /* Fixed positioning */
+
+            top: 1%;
+            left: 5%; /* Center horizontally */
+            transform: translateX(-50%); /* Center horizontally */
+            z-index: 999; /* Ensure it's above other elements */
+          }
+
+          #submitButton span {
+            color: inherit; /* Inherit the parent's text color */
+          }
+        }
+
+    </style>
+  </head>
+  <body>
+  <div class="heading-container">
+      <!-- <img src="image/logo_light.png" alt="Logo" class="logo" /> -->
+      <h1>Sector I</h1>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th><b>Image Name </b></th>
+          <th><b>Action</b></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Azimuth Cell</td>
+          <td>
+            <input
+              type="file"
+              id="AzimuthCellSec1"
+              name="AzimuthCellSec1"
+              accept="image/*"
+              onchange="displayFileName('AzimuthCellSec1', 'AzimuthImageSec1')"
+            />
+            <button
+              onclick="document.getElementById('AzimuthCellSec1').click()"
+            >
+              Upload
+            </button>
+            <span id="AzimuthImageSec1"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Mechanical Cell</td>
+          <td>
+            <button onclick="document.getElementById('MechanicalSec1').click()">
+              Upload
+            </button>
+            <input
+              type="file"
+              id="MechanicalSec1"
+              name="MechanicalSec1"
+              accept="image/*"
+              onchange="displayFileName('MechanicalSec1','MechanicalImageSec1')"
+            />
+            <span id="MechanicalImageSec1"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Electrical Cell</td>
+          <td>
+            <button onclick="document.getElementById('ElectricalSec1').click()">
+              Upload
+            </button>
+            <input
+              type="file"
+              id="ElectricalSec1"
+              name="ElectricalSec1"
+              accept="image/*"
+              onchange="displayFileName('ElectricalSec1','ElectricalImageSec1')"
+            />
+            <span id="ElectricalImageSec1"></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Antenna Height</td>
+          <td>
+            <button
+              onclick="document.getElementById('AntennaHeightSec1').click()"
+            >
+              Upload
+            </button>
+            <input
+              type="file"
+              id="AntennaHeightSec1"
+              name="AntennaHeightSec1"
+              accept="image/*"
+              onchange="displayFileName('AntennaHeightSec1','AntHeightImageSec1')"
+            />
+            <span id="AntHeightImageSec1"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Antenna + Building height</td>
+          <td>
+            <button
+              onclick="document.getElementById('AntBuildingSec1').click()"
+            >
+              Upload
+            </button>
+            <input
+              type="file"
+              id="AntBuildingSec1"
+              name="AntBuildingSec1"
+              accept="image/*"
+              onchange="displayFileName('AntBuildingSec1','AntBuildImageSec1')"
+            />
+            <span id="AntBuildImageSec1"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Building Height</td>
+          <td>
+            <button
+              onclick="document.getElementById('BuildHeightSec1').click()"
+            >
+              Upload
+            </button>
+            <input
+              type="file"
+              id="BuildHeightSec1"
+              name="BuildHeightSec1"
+              accept="image/*"
+              onchange="displayFileName('BuildHeightSec1','BuildHeightImageSec1')"
+            />
+            <span id="BuildHeightImageSec1"></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Pole Tilt</td>
+          <td>
+            <button onclick="document.getElementById('PoleTiltSec1').click()">
+              Upload
+            </button>
+            <input
+              type="file"
+              id="PoleTiltSec1"
+              name="PoleTiltSec1"
+              accept="image/*"
+              onchange="displayFileName('PoleTiltSec1','PoleTiltImageSec1')"
+            />
+            <span id="PoleTiltImageSec1"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Mirror Compass Photo</td>
+          <td>
+            <button
+              onclick="document.getElementById('MirrorCompassSec1').click()"
+            >
+              Upload
+            </button>
+            <input
+              type="file"
+              id="MirrorCompassSec1"
+              name="MirrorCompassSec1"
+              accept="image/*"
+              onchange="displayFileName('MirrorCompassSec1','MirrorCompassImageSec1')"
+            />
+            <span id="MirrorCompassImageSec1"></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Antenna Marking Photo</td>
+          <td>
+            <button
+              onclick="document.getElementById('AntennaMarkingSec1').click()"
+            >
+              Upload
+            </button>
+            <input
+              type="file"
+              id="AntennaMarkingSec1"
+              name="AntennaMarkingSec1"
+              accept="image/*"
+              onchange="displayFileName('AntennaMarkingSec1','AntMarkingImageSec1')"
+            />
+            <span id="AntMarkingImageSec1"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="submitButton" onclick="submitForm1()">Submit</button>
+
+
+
+     <p id="mobileSuccessMessage" style="color: #333333; margin-top: 70px; margin-left: 25%; display: none">
+      <!-- Message for mobile view -->
+      Successfully uploaded images for sector-1
+    </p>
+
+    <script>
+       let imagesFile = {};
+
+    function storeImageFile(file, inputId) {
+      imagesFile[inputId] = file;
+      displayFileName(inputId, inputId.replace("Sec1", "ImageSec1"));
+    }
+
+    function displayFileName(inputId, spanId) {
+      const input = document.getElementById(inputId);
+      const fileNameSpan = document.getElementById(spanId);
+
+      // Check if any file is selected
+      if (input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name; // Display the name of the first selected file
+      } else {
+        fileNameSpan.textContent = ""; // Clear the name if no file is selected
+      }
+    }
+
+    function submitForm1() {
+      const formData = new FormData();
+
+      const fileInputs = document.querySelectorAll('input[type="file"]');
+      fileInputs.forEach((input) => {
+        const file = input.files[0];
+        formData.append(input.name, file);
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const site_code = urlParams.get('site_code');
+      console.log(site_code);
+      formData.append('Site_code', site_code);
+
+      fetch("/upload-images-1", {
+        method: "POST",
+        body: formData,
+      })
+      .then((response) => {
+        if (response.ok) {
+          // Display success message using SweetAlert
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Successfully uploaded images for sector-1',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            window.location.href = "presector2.html";
+          });
+        } else {
+          return alert("Failed to redirect");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error uploading images");
+      });
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Data Form</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+    html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3e5f5;
+            color: black;
+            margin: 0;
+            padding: 0px;
+        }
+
+        .heading-container {
+            background-image: url("static/picture.jpg");
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            padding: 20px;
+            text-align: center;
+        }
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 90px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+          }
+          .mobile-logo{
+            display: none;
+          }
+        h1{
+            color: white;
+        }
+        .nav-links {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: blue; /* Change color to blue */
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f0f0f0; /* Hover background color */
+        }
+
+        .form-container {
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: 30%;
+            background: #e0e0e0;
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #1976d2;
+            color: black;
+            border: none;
+            margin-left: 40%;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+
+        }
+        button[type="submit"]:hover {
+            background-color: #1565c0;
+        }
+        .desktop-logo{
+            display: block;
+          }
+          mobile-logo{
+            display: none;
+          }
+          .web-heading{
+            display: block;
+          }
+          .mobile-heading{
+            display: none;
+          }
+          h2{
+            color: white;
+          }
+        @media screen and (max-width: 600px) {
+            .form-container{
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+            .container {
+              max-width: 100%; /* Adjust width to full width on mobile */
+              margin: 20px auto; /* Adjust margin for better centering on mobile */
+              padding: 10px; /* Reduce padding for smaller screens */
+            }
+            .mobile-heading {
+              display: block; /* Display h4 on mobile */
+              font-family: sans-serif;
+              font-size: 25px; /* Adjust font size as needed */
+              font-weight: bold;
+              display: inline-block;
+              padding: 5px 10px;
+              border-radius: 10px;
+              animation: back 20s linear infinite;
+              margin-top: 5%;
+              margin-left: 12%;
+            }
+            .mobile-heading::before {
+              content: attr(REFL-TEXT);
+              position: absolute;
+              top: 0;
+              left: 0;
+              transform: rotateX(180deg);
+              line-height: 52px;
+            }
+
+            .form-row {
+              flex-direction: column; /* Change to a column layout on smaller screens */
+              width: auto;
+            }
+
+            label {
+              width: auto; /* Allow labels to take up full width on smaller screens */
+            }
+
+            input[type="text"],
+            select {
+              width: 100%; /* Make input fields full width on smaller screens */
+            }
+
+            button[type="submit"] {
+              width: 100%; /* Make submit button full width on smaller screens */
+            }
+
+
+
+            .heading-container {
+              background-image: none;
+              background-color: #0D47A1;
+              padding: 10px;
+              text-align: center;
+              margin-bottom: 10px;
+              position: relative;
+          }
+          .mobile-logo {
+            display: block;
+              top: 10px;
+              left: 10px;
+              width: 70px;
+              height: auto;
+          }
+          h4{
+              color: white;
+          }
+            .nav-links {
+              top: 5px; /* Adjust top position for navigation links */
+              right: 5px; /* Adjust right position for navigation links */
+            }
+
+            .submit {
+              margin-left: 40%; /* Adjust margin for submit button */
+              margin-top: 20px; /* Adjust margin for submit button */
+            }
+
+            #employee{
+               width: 100%;
+            }
+
+            table {
+              width: 100%; /* Make table full width on smaller screens */
+              min-width: 600px; /* Set a minimum width to prevent horizontal overflow */
+            }
+            .desktop-logo{
+              display: none;
+            }
+
+            .web-heading{
+              display: none;
+            }
+            .mobile-heading{
+              display: block;
+            }
+            #submit {
+              width: 30%; /* Make button full width */
+              margin-top: 20px; /* Adjust margin */
+            }
+
+    </style>
+</head>
+<body>
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading"> Upload Post Data</h2>
+        <h4 class="mobile-heading"> Upload Post Data</h4>
+
+
+     <div class="all">
+        <div class="nav-links">
+            <a href="./welcomeadmin">Home</a>
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="#" class="dropbtn">Activity</a>
+                <!-- Adding sub-options under "Activity" -->
+                <div class="dropdown-content" id="activityDropdownContent">
+                    <a href="/projectallocation">Task Allocation</a>
+                    <a href="/admintaskStatus">Task Status</a>
+                </div>
+            </div>
+            <div class="dropdown" onclick="toggleProfileDropdown()">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content" id="profileDropdownContent">
+                    <a href="/Userdetails">My Details</a>
+                    <a href="/request_reset_password">Change Password</a>
+                    <a href="/welcome">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="form-container">
+        <form id="siteIDForm"  method="POST">
+            <label for="siteId">Enter Site ID:</label>
+            <input type="text" id="siteId" name="siteId" required>
+            <label for="sector">Select Sector:</label>
+            <select id="sector" name="sector" required>
+                <option value="">Please select</option>
+                <option value="sector1">sector1</option>
+                <option value="sector2">sector2</option>
+                <option value="sector3">sector3</option>
+            </select>
+            <label for="azimuth">Azimuth Cell:</label>
+            <input type="text" id="azimuth" name="azimuth" disabled>
+            <select id="azimuthMeasurement" name="azimuthMeasurement" disabled>
+                <option value="">Degree Direction</option>
+                <option value="°E">°E</option>
+                <option value="°W">°W</option>
+                <option value="°N">°N</option>
+                <option value="°S">°S</option>
+                <option value="°NE">°NE</option>
+                <option value="°NW">°NW</option>
+                <option value="°SE">°SE</option>
+                <option value="°SW">°SW</option>
+            </select>
+            <label for="towerHeight">Tower Height:</label>
+            <input type="text" id="towerHeight" name="towerHeight" disabled>
+            <select id="towerHeightMeasurement" name="towerHeightMeasurement" disabled>
+                <option value="">select unit</option>
+                <option value="m">m</option>
+                <option value="cm">cm</option>
+            </select>
+            <label for="buildingheight">Building Height:</label>
+            <input type="text" id="buildingheight" name="buildingheight" disabled>
+            <select id="buildingheightMeasurement" name="buildingheightMeasurement" disabled>
+                <option value="">select unit</option>
+                <option value="m">m</option>
+                <option value="cm">cm</option>
+            </select>
+            <label for="antennaheight">Antenna Height:</label>
+            <input type="text" id="antennaheight" name="antennaheight" disabled>
+            <select id="antennaheightMeasurement" name="antennaheightMeasurement" disabled>
+                <option value="">select unit</option>
+                <option value="m">m</option>
+                <option value="cm">cm</option>
+            </select>
+            <label for="mechanicalCell">Mechanical Cell:</label>
+            <input type="text" id="mechanicalCell" name="mechanicalCell"disabled>
+            <label for="electricalCell">Electrical Cell:</label>
+            <input type="text" id="electricalCell" name="electricalCell"disabled>
+            <label for="poleTilt">Pole Tilt:</label>
+            <input type="text" id="poleTilt" name="poleTilt"disabled>
+            <button type="submit" id="submit">Submit</button>
+        </form>
+        <div id="message"></div>
+    </div> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+      document.getElementById("siteIDForm").addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent the default form submission
+  
+          var formData = new FormData(document.getElementById("siteIDForm"));
+          var jsonData = {};
+          formData.forEach((value, key) => {
+              jsonData[key] = value;
+          });
+  
+          fetch('/fillpostdata', {
+              method: 'POST',
+              body: JSON.stringify(jsonData),
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  swal({
+                      title: "Success",
+                      text: data.message,
+                      icon: "success"
+                  });
+              } else {
+                  swal({
+                      title: "Error",
+                      text: data.message,
+                      icon: "error"
+                  });
+              }
+              // Optionally, reset the form after submission
+              document.getElementById("siteIDForm").reset();
+              toggleFormFields(); // Reset form fields to disabled
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              swal({
+                  title: "Error",
+                  text: 'An error occurred while submitting the form',
+                  icon: "error"
+              });
+          });
+      });
+  
+      function toggleFormFields() {
+          var siteId = document.getElementById("siteId").value;
+          var sector = document.getElementById("sector").value;
+          var fields = [
+              "azimuth", "towerHeight", "buildingheight", "antennaheight",
+              "mechanicalCell", "electricalCell", "poleTilt",
+              "azimuthMeasurement", "towerHeightMeasurement", "buildingheightMeasurement", "antennaheightMeasurement"
+          ];
+  
+          var enableFields = siteId && sector; // Check if both site ID and sector are entered
+  
+          fields.forEach(function(field) {
+              document.getElementById(field).disabled = !enableFields;
+          });
+      }
+  
+      document.getElementById("siteId").addEventListener("input", toggleFormFields);
+      document.getElementById("sector").addEventListener("change", toggleFormFields);
+  
+      // Initial call to toggle form fields based on initial site ID and sector values
+      toggleFormFields();
+  </script>
+  
+</body>
+</html>

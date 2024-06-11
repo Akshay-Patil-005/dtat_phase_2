@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Settings</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        .heading-container {
+            background-image: url("static/picture.jpg");
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            padding: 20px;
+            text-align: center;
+    
+        }
+        .nav-links {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+        }
+    
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            position: relative;
+        }
+    
+        .nav-links a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            transition: width 0.3s;
+        }
+    
+        .nav-links a:hover::after {
+            width: 50%;
+        }
+    
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 20px;
+        }
+    
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff; /* White background */
+            border: 1px solid #64b5f6; /* Border color */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Drop shadow */
+            min-width: 160px;
+            z-index: 1;
+            right: 0;
+        }
+    
+        .dropdown-content a {
+            color: #333333; /* Text color */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+    
+        .dropdown-content a:hover {
+            background-color: #f1f1f1; /* Light gray background on hover */
+        }
+    
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 90px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .form-container {
+            max-width: 600px; /* Increased max-width for the container */
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-group .value {
+            display: inline-block;
+            width: calc(100% - 120px); /* Adjusted width for the value boxes */
+            padding: 8px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        h1{
+            color: white;
+        }
+        .web-heading {
+            display: block; /* Display h2 by default */
+        }
+    
+        .mobile-heading {
+            display: none; /* Hide h3 by default */
+        }
+        .mobile-logo{
+            display: none;
+        }
+        .desktop-logo{
+            display: block;
+        }
+        h2{
+            color: white;
+        }
+    
+        @media screen and (max-width: 600px) {
+            .heading-container {
+                background-image: none; /* Remove background image */
+            }
+            span#name.value {
+                width: 90%;
+            }
+              span#admin.value {
+                width: 90%;
+              }
+              span#vendor.value {
+                width: 90%;
+              }
+              span#circle.value {
+                width: 90%;
+              }
+              span#email.value {
+                width: 90%;
+            }
+            button {
+    
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #1976d2;
+                color: #333333;
+                border: none;
+                border-radius: 25px;
+                display: inline-block; /* Display as inline-block */
+                width: auto; /* Adjust width automatically */
+                margin: 10px; /* Adjust margin as needed */
+                margin-top: 10%; /* Adjust margin-top as needed */
+                margin-left: 15%; /* Center the button horizontally */
+            }
+    
+            .mobile-heading {
+                font-size: 16px; /* Adjust the font size as needed */
+            }
+            .web-heading {
+                display: none; /* Hide h2 on mobile */
+            }
+            .mobile-logo {
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                width: 75px; /* Adjust width as needed */
+                height: auto; /* Maintain aspect ratio */
+            }
+            .desktop-logo{
+                display: none;
+            }
+            .mobile-heading {
+                display: block; /* Display h3 on mobile */
+            }
+            .mobile-heading {
+                font-family: sans-serif;
+                font-size: 30px; /* Adjust font size as needed */
+                font-weight: bold;
+                display: inline-block;
+                padding: 0px 5px;
+                border-radius: 10px;
+                animation: back 20s linear infinite;
+            }
+    
+            .mobile-heading::before {
+                content: attr(REFL-TEXT);
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: rotateX(180deg);
+                line-height: 52px;
+            }
+    
+    
+            button span.arrow-icon {
+                vertical-align: middle; /* Align the arrow icon vertically */
+                margin-left: 5px; /* Adjust margin as needed */
+            }
+    
+            button::after {
+                content: '\00a0'; /* Add some space after button text */
+            }
+            .heading-container {
+                background-image: none;
+                background-color: #0D47A1;
+                padding: 0px;
+                text-align: center;
+                margin-bottom: 10px;
+                position: relative;
+            }
+            h4{
+                color: white;
+            }
+            .form-container{
+                width: 80%; /* Adjust width as needed */
+                margin: 0 auto; /* Center the form horizontally */
+                margin-top: 10%;
+            }
+            .form-group{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading">Employee Management</h2>
+        <h4 class="mobile-heading">Employee Management</h4>
+    </div>
+
+    <div class="all">
+        <div class="nav-links">
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="./welcomeadmin">Home</a>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4 p-2 rounded shadow bg-white">
+        <div class="mb-2">
+            <form method="get" class="d-flex">
+                <input type="search" name="query" class="form-control form-control me-2" style="width: 82.5%;" placeholder="Search..." value="{{ query or '' }}">
+                <button class="btn btn-success btn-lg px-3" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr.No.</th>
+                        <th scope="col">
+                            <a href="?sort_by=employee_Name&sort_order={{ 'asc' if sort_by != 'employee_Name' or sort_order == 'desc' else 'desc' }}">
+                                Employee Name
+                                {% if sort_by == 'employee_Name' %}
+                                    {% if sort_order == 'asc' %}▲{% else %}▼{% endif %}
+                                {% endif %}
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a href="?sort_by=circle_name&sort_order={{ 'asc' if sort_by != 'circle_name' or sort_order == 'desc' else 'desc' }}">
+                                Circle Name
+                                {% if sort_by == 'circle_name' %}
+                                    {% if sort_order == 'asc' %}▲{% else %}▼{% endif %}
+                                {% endif %}
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a href="?sort_by=isAdmin&sort_order={{ 'asc' if sort_by != 'isAdmin' or sort_order == 'desc' else 'desc' }}">
+                                Role
+                                {% if sort_by == 'isAdmin' %}
+                                    {% if sort_order == 'asc' %}▲{% else %}▼{% endif %}
+                                {% endif %}
+                            </a>
+                        </th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr id="employeeRow_{{ employee.uid }}">
+                        <td>{{ employee.index }}</td>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.circle_name }}</td>
+                        <td>{{ 'Admin' if employee.isAdmin else 'User' }}</td>
+                        <td>
+                            <a href="#updateEmployeeModal_{{ employee.uid }}" data-bs-toggle="modal" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('{{ employee.uid }}')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <nav>
+            <ul class="pagination">
+                {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?sort_by={{ sort_by }}&sort_order={{ sort_order }}&page={{ page - 1 }}&query={{ query or '' }}">Previous</a>
+                </li>
+                {% endif %}
+                {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {{ 'active' if p == page else '' }}">
+                    <a class="page-link" href="?sort_by={{ sort_by }}&sort_order={{ sort_order }}&page={{ p }}&query={{ query or '' }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+                {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="?sort_by={{ sort_by }}&sort_order={{ sort_order }}&page={{ page + 1 }}&query={{ query or '' }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+  <!-- Update Employee Modal -->
+{% for employee in employees %}
+<div class="modal fade" id="updateEmployeeModal_{{ employee.uid }}" tabindex="-1" aria-labelledby="updateEmployeeModal_{{ employee.uid }}Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="updateForm_{{ employee.uid }}" class="update-form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateEmployeeModal_{{ employee.uid }}Label">Update Employee Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="{{ employee.uid }}">
+                    <div class="mb-3">
+                        <label for="name_{{ employee.uid }}" class="form-label">Employee Name</label>
+                        <input type="text" class="form-control" id="name_{{ employee.uid }}" name="name" value="{{ employee.name }}">
+                        <label for="email_{{ employee.uid }}" class="form-label">Employee Email</label>
+                        <input type="email" class="form-control" id="email_{{ employee.uid }}" name="email" value="{{ employee.email }}">
+                        <label for="circle_name_{{ employee.uid }}" class="form-label">Circle Name</label>
+                        <input type="text" class="form-control" id="circle_name_{{ employee.uid }}" name="circle_name" value="{{ employee.circle_name }}">
+                        <label for="isAdmin_{{ employee.uid }}" class="form-label">Role</label>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="isAdminTrue_{{ employee.uid }}" name="is_admin" value="true" {% if employee.isAdmin %}checked{% endif %}>
+                            <label class="form-check-label" for="isAdminTrue_{{ employee.uid }}">Admin</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="isAdminFalse_{{ employee.uid }}" name="is_admin" value="false" {% if not employee.isAdmin %}checked{% endif %}>
+                            <label class="form-check-label" for="isAdminFalse_{{ employee.uid }}">User</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary update-btn" onclick="save('{{ employee.uid }}')">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function save(employee_id) {
+    fetch('/update_employee', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: employee_id,
+            name: document.getElementById('name_' + employee_id).value,
+            email: document.getElementById('email_' + employee_id).value,
+            circle_name: document.getElementById('circle_name_' + employee_id).value,
+            is_admin: document.getElementById('isAdminTrue_' + employee_id).checked.toString()
+        })
+    }).then(response => {
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Employee updated successfully'
+            }).then(() => {
+                $('#updateEmployeeModal_' + employee_id).modal('hide');
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to update employee'
+            });
+        }
+    });
+}
+
+function confirmDelete(employee_id) {
+    Swal.fire({
+        title: 'Confirmation',
+        text: 'Are you sure you want to delete this employee?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('/delete_employee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: employee_id })
+            }).then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Employee deleted successfully'
+                    }).then(() => {
+                        document.getElementById('employeeRow_' + employee_id).remove();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to delete employee'
+                    });
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while deleting employee'
+                });
+            });
+        }
+    });
+}
+</script>
+
+</body>
+</html>

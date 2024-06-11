@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sector-2 Image Upload</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+ /* Add your styling here */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 2%;
+      }
+
+ #successMessage{
+      display:block;
+      }
+      #mobileSuccessMessage{
+      display:none;
+      }
+      th,
+      td {
+        border: 1px solid whitesmoke;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4285f4;
+        color: whitesmoke;
+      }
+
+      td:first-child {
+        width: 45%; /* Adjust the width for the Sr No. column */
+      }
+
+      td:nth-child(2) {
+        width: 45%; /* Adjust the width for Field and Value columns */
+      }
+      .heading-container {
+        background-image: url("static/picture.jpg");
+        background-size: cover; /* Cover the entire background */
+        background-repeat: no-repeat; /* Prevent background image from repeating */
+        padding: 20px;
+        text-align: center;
+      }
+
+      button {
+        float: left;
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px;
+        text-align: left;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 30px;
+        border-radius: 25px;
+        margin-right: 5px;
+      }
+
+      button:hover {
+        background-color: #1565c0;
+      }
+
+      /* Hide the file input */
+      input[type="file"] {
+        display: none;
+      }
+
+      #submitButton {
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 25px;
+        margin-right: 5px;
+        margin-left: 47%;
+        margin-top: 5%;
+      }
+
+      #submitButton:hover {
+        background-color: #1565c0;
+      }
+
+      h1 {
+        text-align: center;
+        color: white;
+      }
+
+      th {
+        text-align: center;
+      }
+
+      td {
+        text-align: center;
+      }
+
+      img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+      body {
+        background-color: #f3e5f5;
+      }
+      .logo {
+        position: absolute;
+        top: 10px;
+        left: 50px;
+        width: 100px; /* Adjust width as needed */
+        height: auto; /* Maintain aspect ratio */
+      }
+      #mobileSuccessMessage{
+         display: none;
+      }
+
+      @media only screen and (max-width: 600px) {
+        table {
+        font-size: 14px;
+        }
+         #successMessage{
+      display:none;
+      }
+      #mobileSuccessMessage{
+      display:block;
+      }
+        .heading-container {
+          background-color: #0D47A1;
+          background-size: cover; /* Cover the entire background */
+          background-repeat: no-repeat; /* Prevent background image from repeating */
+          padding: 20px;
+          text-align: center;
+          }
+
+        th, td {
+        padding: 6px;
+        }
+        .heading-container{
+        background-image: none;
+        background-color: #0D47A1;
+
+        }
+        .logo {
+        display: none; /* Hide the logo image on mobile devices */
+        }
+        }
+
+
+        @media only screen and (max-width: 600px) {
+          #submitButton {
+            position: relative; /* Fixed positioning */
+
+            top: 1%;
+            left: 5%; /* Center horizontally */
+            transform: translateX(-50%); /* Center horizontally */
+            z-index: 999; /* Ensure it's above other elements */
+          }
+
+          #submitButton span {
+            color: inherit; /* Inherit the parent's text color */
+          }
+        }
+    </style>
+  </head>
+  <body>
+    <div class="heading-container">
+      <h1>Sector II</h1>
+    </div>
+
+
+<table>
+    <thead>
+    <tr>
+        <th><b>Image Name</b></th>
+        <th><b>Action</b></th>
+        <th><b>Requirements</b></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td>Azimuth Cell</td>
+        <td>
+            <input
+                    type="file"
+                    id="AzimuthCellSec2"
+                    name="AzimuthCellSec2"
+                    accept="image/*"
+                    onchange="displayFileName('AzimuthCellSec2', 'AzimuthImageSec2')"
+            />
+            <button
+                    onclick="document.getElementById('AzimuthCellSec2').click()"
+            >
+                Upload
+            </button>
+            <span id="AzimuthImageSec2"></span>
+        </td>
+
+        <td>{{ requirements['azimuth'] }}</td>
+    </tr>
+    <tr>
+        <td>Mechanical Cell</td>
+        <td>
+            <input
+                    type="file"
+                    id="MechanicalSec2"
+                    name="MechanicalSec2"
+                    accept="image/*"
+                    onchange="displayFileName('MechanicalSec2', 'MechanicalImageSec2')"
+            />
+            <button
+                    onclick="document.getElementById('MechanicalSec2').click()"
+            >
+                Upload
+            </button>
+            <span id="MechanicalImageSec2"></span>
+        </td>
+
+        <td>{{ requirements['mechanical_cell'] }}</td>
+    </tr>
+    <tr>
+        <td>Electrical Cell</td>
+        <td>
+            <input
+                    type="file"
+                    id="ElectricalSec2"
+                    name="ElectricalSec2"
+                    accept="image/*"
+                    onchange="displayFileName('ElectricalSec2', 'ElectricalImageSec2')"
+            />
+            <button
+                    onclick="document.getElementById('ElectricalSec2').click()"
+            >
+                Upload
+            </button>
+            <span id="ElectricalImageSec2"></span>
+        </td>
+
+        <td>{{ requirements['electrical_cell'] }}</td>
+    </tr>
+    <tr>
+        <td>Tower Height</td>
+        <td>
+            <input
+                    type="file"
+                    id="TowerHeightSec2"
+                    name="TowerHeightSec2"
+                    accept="image/*"
+                    onchange="displayFileName('TowerHeightSec2', 'TowerHeightImageSec2')"
+            />
+            <button
+                    onclick="document.getElementById('TowerHeightSec2').click()"
+            >
+                Upload
+            </button>
+            <span id="TowerHeightImageSec2"></span>
+        </td>
+
+        <td>{{ requirements['tower_height'] }}</td>
+    </tr>
+    <tr>
+        <td>Pole Tilt</td>
+        <td>
+            <input
+                    type="file"
+                    id="PoleTiltSec2"
+                    name="PoleTiltSec2"
+                    accept="image/*"
+                    onchange="displayFileName('PoleTiltSec2', 'PoleTiltImageSec2')"
+            />
+            <button
+                    onclick="document.getElementById('PoleTiltSec2').click()"
+            >
+                Upload
+            </button>
+            <span id="PoleTiltImageSec2"></span>
+        </td>
+
+        <td>{{ requirements['pole_tilt'] }}</td>
+    </tr>
+    <tr>
+        <td>Antenna Height</td>
+        <td>
+            <input
+                    type="file"
+                    id="AntennaHeightSec2"
+                    name="AntennaHeightSec2"
+                    accept="image/*"
+                    onchange="displayFileName('AntennaHeightSec2', 'AntennaHeightImageSec2')"
+            />
+            <button
+                    onclick="document.getElementById('AntennaHeightSec2').click()"
+            >
+                Upload
+            </button>
+            <span id="AntennaHeightImageSec2"></span>
+        </td>
+
+        <td>{{ requirements['antenna_height'] }}</td>
+    </tr>
+
+    </tbody>
+</table>
+
+    <button id="submitButton" onclick="submitForm2()">Submit</button>
+    <p
+      id="successMessage"
+      style="color: #333333; margin-top: 10px; margin-left: 35%; display: none"
+    >
+      You successfully uploaded images for sector-2
+    </p>
+
+  </body>
+</html>

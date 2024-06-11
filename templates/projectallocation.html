@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Selection</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+         html, body {
+            height: 100%; /* Ensure HTML and body elements take up the full height of the viewport */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5;
+            color: black; /* White text */
+            margin: 0;
+            padding: 0px;
+
+        }
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .nav-links {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: blue; /* Change color to blue */
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f0f0f0; /* Hover background color */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 180px auto;
+            color: black;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #e0e0e0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #1976d2;
+            color: white;
+            cursor: pointer;
+            border: none;
+            width: 30%;
+            border-radius:25px;
+        }
+        .heading-container {
+            background-image: url("static/picture.jpg");
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            padding: 20px;
+            text-align: center;
+
+        }
+        h1{
+            color: white;
+        }
+
+        button:hover {
+            background-color:  #1565c0;
+        }
+        .error-message {
+            color: red;
+        }
+        .desktop-logo{
+            display: block;
+        }
+        .mobile-logo{
+            display: none;
+        }
+        .web-heading{
+            display: block;
+        }
+        .mobile-heading{
+            display: none;
+        }
+
+        h2{
+            color: white;
+        }
+        @media screen and (max-width: 600px) {
+            .web-heading{
+                display: none;
+            }
+
+            .desktop-logo{
+                display: none;
+            }
+            .mobile-logo{
+                display: block;
+            }
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #1976d2;
+                color: #333333;
+                border: none;
+                border-radius: 25px;
+                display: inline-block; /* Display as inline-block */
+                width: auto; /* Adjust width automatically */
+                margin: 10px; /* Adjust margin as needed */
+                margin-top: 10%; /* Adjust margin-top as needed */
+                margin-left: 15%; /* Center the button horizontally */
+              }
+              .mobile-heading {
+                display: block; /* Display h4 on mobile */
+                font-family: sans-serif;
+                font-size: 25px; /* Adjust font size as needed */
+                font-weight: bold;
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 10px;
+                animation: back 20s linear infinite;
+                margin-top: 15%;
+                margin-left: 12%;
+              }
+              .heading-container {
+                background-image: none;
+                background-color: #0D47A1;
+                padding: 20px;
+                text-align: center;
+                margin-bottom: 10px;
+                position: relative;
+            }
+            .mobile-logo {
+              display: block;
+              position: absolute;
+              top: 5px;
+              left: 10px;
+              width: 75px; /* Adjust width as needed */
+              height: auto; /* Maintain aspect ratio */
+            }
+            h4{
+                color: white;
+            }
+            form {
+                width: 80%;
+                margin: 0 auto; /* Center the form horizontally */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading">  Project Allocation </h2>
+        <h4 class="mobile-heading"> Project Allocation  </h4>
+    </div>
+
+
+    <div class="all">
+        <div class="nav-links">
+            <a href="./welcomeadmin">Home</a>
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="#" class="dropbtn">Activity</a>
+                <!-- Adding sub-options under "Activity" -->
+                <div class="dropdown-content" id="activityDropdownContent">
+<!--                    <a href="/taskallocation">Task Allocation</a>-->
+                    <a href="/admintaskStatus">Task Status</a>
+                </div>
+            </div>
+            <div class="dropdown" onclick="toggleProfileDropdown()">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content" id="profileDropdownContent">
+                    <a href="/Userdetails">My Details</a>
+                    <a href="/request_reset_password">Change Password</a>
+                    <a href="/welcome">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <form id="projectForm" action="/submit" method="POST" onsubmit="return submitIssue()">
+
+
+        <label for="selectProject"> Select Project</label>
+        <select id="selectProject" name="selectProject">
+            <option value="Select Project" disabled selected>-- Select Project --</option>
+            <option value="Ericsson">Ericsson </option>
+            <option value="Nokia"> Nokia</option>
+            <option value="VIL">VIL</option>
+        </select>
+
+        <label for="selectOperator"> Select operator</label>
+        <select id="selectOperator" name="selectOperator">
+            <option value="Select Project" disabled selected>-- Select operator --</option>
+            <option value="Bharti">Bharti </option>
+            <option value="Airtel"> Airtel</option>
+            <option value="Jio"> JIO</option>
+            <option value="VIL"> VIL</option>
+        </select>
+
+        <br>
+
+        <label for="project"> Select Circle</label>
+        <select id="project" name="project" onchange="populateEmployeeDropdown()">
+            <option value="Select Project" disabled selected>-- Select Circle--</option>
+            <option value="MP" id="MP">MP (Madhya Pradesh)</option>
+            <option value="UPW">UPW (UP West)</option>
+            <option value="UPE">UPE (UP East)</option>
+            <option value="RJ">RJ (Rajasthan)</option>
+            <option value="GUJ">GUJ (Gujarat)</option>
+            <option value="MH">MH (Maharashtra)</option>
+            <option value="Bihar">Bihar</option>
+            <option value="ROB">ROB (Rest of Bengal)</option>
+            <option value="PNB">PNB (Punjab)</option>
+            <option value="KTK">KTK (Karnataka)</option>
+            <option value="MUM">MUM (Mumbai)</option>
+            <option value="Chennai">Chennai</option>
+            <option value="JH">JH (Jharkhand)</option>
+            <option value="KOC">Kolkata(KOC)</option>
+            <option value="HP">Himachal Pradesh (HP)</option>
+            <option value="HR">HR (Haryana)</option>
+            <option value="AP">AP (Andhra Pradesh)</option>
+            <option value="ROTN">ROTN (Rest of Tamil Nadu)</option>
+            <option value="KE">KE (Kerala)</option>
+        </select>
+
+        <label for="selectActivity"> Activity </label>
+        <select id="selectActivity" name="selectActivity">
+            <option value="Select Project" disabled selected>-- Select Activity --</option>
+            <option value="4G Cluster"> 4G Cluster </option>
+            <option value="4G SCFT"> 4G SCFT </option>
+            <option value="5G Cluster"> 5G Cluster </option>
+            <option value="5G SCFT/SSV"> 5G SCFT/SSV </option>
+        </select>
+        <div id="optionField" style="display: none;">
+            <label for="chosenOption">Choose an option:</label>
+            <select id="chosenOption" name="chosenOption">
+                <option value="Select Project" disabled selected>-- Select value --</option>
+                <option value="700">700</option>
+                <option value="3500">3500</option>
+            </select>
+        </div>
+
+        <!-- Hidden input field to store the chosen option -->
+        <input type="hidden" id="hiddenChosenOption" name="hiddenChosenOption" value="">
+
+        <br>
+
+          <p class="error-message" id="errorMessage" style="display: none;">Please select All the fields </p>
+
+        <button type="submit" onclick="submitIssue()" >Submit</button>
+     </form>
+
+    <script>
+
+    function toggleOptionField() {
+        const projectValue = document.getElementById("selectProject").value;
+        const operatorValue = document.getElementById("selectOperator").value;
+        const activityValue = document.getElementById("selectActivity").value;
+        const optionField = document.getElementById("optionField");
+
+        if ((projectValue === "Ericsson" || projectValue === "Nokia") && operatorValue === "Jio" && activityValue === "5G SCFT/SSV") {
+            optionField.style.display = "block";
+        } else {
+            optionField.style.display = "none";
+        }
+    }
+
+    function toggleActivityDropdown() {
+        var activityDropdownContent = document.getElementById("activityDropdownContent");
+        var profileDropdownContent = document.getElementById("profileDropdownContent");
+        if (activityDropdownContent.style.display === "block") {
+            activityDropdownContent.style.display = "none";
+        } else {
+            activityDropdownContent.style.display = "block";
+            // Close profile dropdown if it's open
+            profileDropdownContent.style.display = "none";
+        }
+    }
+
+    function toggleProfileDropdown() {
+        var profileDropdownContent = document.getElementById("profileDropdownContent");
+        var activityDropdownContent = document.getElementById("activityDropdownContent");
+        if (profileDropdownContent.style.display === "block") {
+            profileDropdownContent.style.display = "none";
+        } else {
+            profileDropdownContent.style.display = "block";
+            // Close activity dropdown if it's open
+            activityDropdownContent.style.display = "none";
+        }
+    }
+
+    function submitIssue() {
+        var selectProject = document.getElementById("selectProject");
+        var selectOperator = document.getElementById("selectOperator");
+        var project = document.getElementById("project");
+        var selectActivity = document.getElementById("selectActivity");
+        var errorMessage = document.getElementById("errorMessage");
+
+        if (selectProject.value == "Select Project" || selectOperator.value == "Select Project" || project.value == "Select Project" || selectActivity.value == "Select Project") {
+            errorMessage.style.display = "block";
+            return false;
+        } else {
+            errorMessage.style.display = "none";
+            return true;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", toggleOptionField);
+    document.getElementById("selectProject").addEventListener("change", toggleOptionField);
+    document.getElementById("selectOperator").addEventListener("change", toggleOptionField);
+    document.getElementById("selectActivity").addEventListener("change", toggleOptionField);
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Issue</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3e5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .heading-container {
+            background-image: url("static/picture.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 20px;
+            text-align: center;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 25px;
+            margin: 10px 5px;
+            cursor: pointer;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+        }
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 90px;
+            height: auto;
+        }
+        .nav-links {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: blue;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #f0f0f0;
+        }
+        .error-message {
+            font-size: 14px;
+            color: red;
+        }
+        .web-heading {
+            display: block;
+        }
+        .mobile-heading {
+            display: none;
+        }
+        .mobile-logo {
+            display: none;
+        }
+        @media screen and (max-width: 600px) {
+            .heading-container {
+                background-image: none;
+            }
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #1976d2;
+                color: #333333;
+                border: none;
+                border-radius: 25px;
+                display: inline-block;
+                width: auto;
+                margin: 10px;
+                margin-top: 10%;
+                margin-left: 15%;
+            }
+            .mobile-heading {
+                font-size: 16px;
+            }
+            .web-heading {
+                display: none;
+            }
+            .mobile-logo {
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                width: 75px;
+                height: auto;
+            }
+            .desktop-logo {
+                display: none;
+            }
+            .mobile-heading {
+                display: block;
+                font-family: sans-serif;
+                font-size: 30px;
+                font-weight: bold;
+                display: inline-block;
+                padding: 0px 10px;
+                border-radius: 10px;
+                animation: back 20s linear infinite;
+            }
+            .mobile-heading::before {
+                content: attr(REFL-TEXT);
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: rotateX(180deg);
+                line-height: 52px;
+            }
+            button span.arrow-icon {
+                vertical-align: middle;
+                margin-left: 5px;
+            }
+            button::after {
+                content: '\00a0';
+            }
+            .heading-container {
+                background-image: none;
+                background-color: #0D47A1;
+                padding: 0px;
+                text-align: center;
+                margin-bottom: 10px;
+                position: relative;
+            }
+            h4 {
+                color: white;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <div class="heading-container">
+        <img src="static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading">Submit Issue</h2>
+        <h4 class="mobile-heading">Submit Issue</h4>
+    </div>
+    <div class="all">
+        <div class="nav-links">
+            <a href="/welcomeuser">Home</a>
+            <div class="dropdown" onclick="toggleProfileDropdown()">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content" id="profileDropdownContent">
+                    <a href="/Userdetails">My Details</a>
+                    <a href="/request_reset_password">Change Password</a>
+                    <a href="/welcome">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="POST" id="issueForm" onsubmit="return false;">
+        <div class="container">
+            <h3>Enter Your Issue:</h3>
+            <div class="other-issue" id="otherIssue">
+                <input type="text" id="other" name="other" placeholder="Describe your issue..." onkeypress="checkEnter(event)">
+                <p class="error-message" id="errorMessage" style="display: none;">Please describe your issue before submitting.</p>
+            </div>
+            <div class="button-container">
+                <button type="button" id="submitButton" onclick="submit_issue()">Submit</button>
+            </div>
+            <div id="successMessage" style="display: none; text-align: center; margin-top: 20px; color: green;">
+                Issue successfully submitted!
+            </div>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        async function submit_issue() {
+            var otherInput = document.getElementById("other");
+            var errorMessage = document.getElementById("errorMessage");
+            var issueText = otherInput.value.trim();
+
+            console.log("Issue text: ", issueText);
+
+            // Check if issue text is empty
+            if (issueText === "") {
+                errorMessage.style.display = "block"; // Display the error message
+                return; // Prevent submission if issue text is empty
+            } else {
+                errorMessage.style.display = "none"; // Hide the error message
+            }
+
+            // Show loading SweetAlert
+            Swal.fire({
+                title: 'Submitting...',
+                text: 'Please wait while we submit your issue.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
+
+            try {
+                // Send data to Flask backend
+                const response = await fetch('/submit_issue', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ issue: issueText })
+                });
+
+                console.log("Response status: ", response.status);
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your issue has been successfully submitted!',
+                        timer: 2500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        console.log("Redirecting to welcome Page");
+                        window.location.href = '/welcomeuser'; // Redirect to another page after success
+                    });
+                } else {
+                    const result = await response.json();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.error || 'There was a problem submitting your issue. Please try again later.'
+                    });
+                }
+            } catch (error) {
+                console.error("Error submitting issue: ", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'There was a problem submitting your issue. Please try again later.'
+                });
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent form submission on Enter key press
+                submit_issue(); // Call the submit_issue function
+            }
+        }
+    </script>
+</body>
+</html>

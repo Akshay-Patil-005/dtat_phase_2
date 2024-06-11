@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        html,body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, rgb(12, 12, 39), #3498db);
+            height: 100%;
+        }
+
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            color: white;
+            padding: 10px;
+            margin-top: 15%;
+        }
+
+        p {
+            margin-top: 3%;
+            color: white;
+        }
+
+        #buttonContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .roleButton {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 150px;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        #getStartedButton {
+            background-color: white;
+            color: rgb(65, 152, 190);
+            border: none;
+            margin-top: 10%;
+            border-radius: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #welcomeMessage{
+            display: block;
+        }
+        #mobwelcomeMessage{
+            display: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            h1 {
+                margin-top: 10%; /* Adjust margin for smaller screens */
+            }
+
+            .roleButton {
+                width: 100%; /* Make buttons full width on smaller screens */
+            }
+
+            #getStartedButton {
+                margin-top: 20%; /* Adjust margin for smaller screens */
+                width: auto; /* Make button width 80% on smaller screens */
+            }
+            #instructions{
+                margin-top: 35%;
+            }
+
+            /* Align "Welcome to" and "Insta-ICT Solution" on separate lines */
+            #mobwelcomeMessage {
+                display: block;
+                text-align: center; /* Center the content */
+            }
+
+            #mobwelcomeMessage span {
+                display: block; /* Display each part in a separate line */
+                margin-bottom: 5px; /* Add some spacing between the lines */
+            }
+            #instaIctSolution {
+                display: block; /* Change display to block for mobile */
+            }
+            #welcomeMessage{
+                display: none;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1 id="mobwelcomeMessage">
+        <span>Welcome to</span>
+        <span>Insta ICT Solutions</span>
+    </h1>
+    <h1 id="welcomeMessage"> Welcome To Insta ICT Solutions</h1>
+    <p id="instructions">Thank you for visiting. Feel free to explore and enjoy your time here.</p>
+
+    <div id="buttonContainer">
+        <button id="getStartedButton" onclick="window.location.href = '/login'">Get Started</button>
+    </div>
+
+
+
+</body>
+</html>

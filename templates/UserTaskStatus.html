@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Selection Form</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3e5f5;
+    }
+
+    .form-container {
+        margin-top: 3%;
+        max-width: 400px;
+        margin-left: 35%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #e0e0e0;
+    }
+    .nav-links {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .nav-links a {
+        margin-left: 20px;
+        color: white;
+        text-decoration: none;
+    }
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        right: 0;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown-content a {
+        color: blue; /* Change color to blue */
+        display: block;
+       padding: 10px;
+        text-decoration: none;
+    }
+    .dropdown-content a:hover {
+        background-color: #f0f0f0; /* Hover background color */
+    }
+    .table-container {
+
+        padding: 20px;
+    }
+    .dropdown {
+        width: 100%;
+        padding: 8px 12px;
+        margin-bottom: 20px;
+
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .calendar-icon {
+        margin-right: 10px;
+        color: #555;
+    }
+    .date-input {
+        width: 100%;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .hidden {
+        display: none;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #4285f4;
+    }
+    .mobile-logo{
+        display: none;
+    }
+    .desktop-logo{
+        display: block;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      margin-top: 5%;
+      cursor: pointer;
+      background-color: #1976d2;
+      color: #333333;
+      border: none;
+      border-radius: 25px;
+  }
+  h2{
+color: white;
+  }
+  .web-heading {
+    display: block; /* Display h2 on web */
+  }
+  .mobile-heading {
+    display: none; /* Hide h4 on web */
+  }
+
+  button:hover {
+      background-color: #1565c0;
+  }
+  .desktop-logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 90px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+  .heading-container {
+    background-image: url("static/picture.jpg");
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    padding: 20px;
+    text-align: center;
+
+}
+.error-message {
+    color: red;
+}
+
+@media screen and (max-width: 600px) {
+
+    .web-heading {
+        display: none; /* Hide h2 on mobile */
+      }
+      .error-message {
+        color: red;
+    }
+
+
+    .mobile-logo {
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        width: 75px; /* Adjust width as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+    .desktop-logo{
+        display: none;
+    }
+
+    .mobile-heading {
+        display: block; /* Display h4 on mobile */
+        font-family: sans-serif;
+        font-size: 25px; /* Adjust font size as needed */
+        font-weight: bold;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 10px;
+        animation: back 20s linear infinite;
+        margin-top: 15%;
+        margin-left: 12%;
+      }
+      .heading-container {
+        background-image: none;
+        background-color: #0D47A1;
+        padding: 0px;
+        text-align: center;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    .desktop-logo {
+        top: 10px;
+        left: 10px;
+        width: 70px;
+        height: auto;
+    }
+    h4{
+        color: white;
+    }
+    .form-container{
+        width: 80%; /* Adjust width as needed */
+        margin: 0 auto; /* Center the form horizontally */
+        margin-top: 10%;
+    }
+    .mobile-heading::before {
+        content: attr(REFL-TEXT);
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotateX(180deg);
+        line-height: 52px;
+      }
+      th {
+        background-color: #4285f4;
+        color: white;
+        padding: 8px;
+         text-align: left;
+         border-bottom: 1px solid #ddd;
+
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table-container {
+        padding: 20px;
+        overflow-x: auto; /* Add horizontal scroll if necessary */
+        max-width: 100%; /* Adjust the maximum width as needed */
+    }
+
+
+
+      button span.arrow-icon {
+        vertical-align: middle; /* Align the arrow icon vertically */
+        margin-left: 5px; /* Adjust margin as needed */
+      }
+      button::after {
+        content: '\00a0'; /* Add some space after button text */
+      }
+
+}
+</style>
+</head>
+<body>
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading">  Task Status </h2>
+        <h4 class="mobile-heading"> Task Status  </h4>
+    </div>
+         <div class="all">
+        <div class="nav-links">
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="#" class="dropbtn">Activity</a>
+                <!-- Adding sub-options under "Activity" -->
+                <div class="dropdown-content" id="activityDropdownContent">
+                    <a href="/taskallocation">Task Allocation</a>
+
+                </div>
+            </div>
+            <div class="dropdown" onclick="toggleProfileDropdown()">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content" id="profileDropdownContent">
+                    <a href="/Userdetails">My Details</a>
+                    <a href="/request_reset_password">Change Password</a>
+                    <a href="/welcome">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<form method="POST" id="statusForm">
+
+    <div class="form-container">
+        <label for="circle1">Select Task Status:</label>
+        <select name="circle1" id="circle1" class="dropdown">
+            <option value="Select Circle">-- Select Status --</option>
+            <option value="Completed">Completed Task</option>
+            <option value="Pending">Pending Task</option>
+        </select>
+
+        <label for="circle">Select Circle:</label>
+        <select id="circle" name="circle" class="dropdown">
+            <option value="Select Circle">-- Select Circle --</option>
+            <option value="MP">MP(Madhya Pradesh)</option>
+            <option value="UPW">UPW(UP West)</option>
+            <option value="UPE">UPE(UP East)</option>
+            <option value="RJ">RJ(Rajasthan)</option>
+            <option value="GUJ">GUJ(Gujarat)</option>
+            <option value="MH">MH(Maharashtra)</option>
+            <option value="Bihar">Bihar</option>
+            <option value="ROB">ROB(Rest of Bengal)</option>
+            <option value="PNB">PNB(Punjab)</option>
+            <option value="KTK">KTK(Karnataka)</option>
+            <option value="MUM">MUM(Mumbai)</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Jharkhand">JH(Jharkhand)</option>
+            <option value="Kolkata">Kolkata(KOC)</option>
+            <option value="HimachalPradesh">HimachalPradesh(HP)</option>
+            <option value="HR">HR(Haryana)</option>
+            <option value="AP">AP(Andhra Pradesh)</option>
+            <option value="ROTN">ROTN(Rest of Tamil Nadu)</option>
+            <option value="KE">KE(Kerala)</option>
+        </select>
+        <div class="date-container">
+          <label for="fromDate"> Date:</label>
+            <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span>
+            <input type="date" class="date-input" id="fromDate" name="fromDate" placeholder=" Date">
+        </div>
+        <br>
+        <div class="date-container">
+          <label for="toDate"> Date:</label>
+            <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span>
+            <input type="date" class="date-input" id="toDate" name="toDate" placeholder="To Date">
+        </div>
+
+        <button onclick="showTable()">Submit</button>
+    </div>
+
+    <div class="table-container" id="table-container">
+        <table >
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Project</th>
+                    <th>Site Code</th>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Log Details</th>
+                </tr>
+            </thead>
+            <tbody id="tableData">
+                {% for row in data %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ row.ProjectName }}</td>
+                        <td>{{ row.siteCode }}</td>
+                        <td>{{ row.AssignedEmployee }}</td>
+                        <td>{{ row.AllocatedDate }}</td>
+                        <td><a href="/logdetails">Log Details</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+    <script>
+        function toggleActivityDropdown() {
+            var activityDropdownContent = document.getElementById("activityDropdownContent");
+            var profileDropdownContent = document.getElementById("profileDropdownContent");
+            if (activityDropdownContent.style.display === "block") {
+                activityDropdownContent.style.display = "none";
+            } else {
+                activityDropdownContent.style.display = "block";
+                // Close profile dropdown if it's open
+                profileDropdownContent.style.display = "none";
+            }
+        }
+
+        function toggleProfileDropdown() {
+            var profileDropdownContent = document.getElementById("profileDropdownContent");
+            var activityDropdownContent = document.getElementById("activityDropdownContent");
+            if (profileDropdownContent.style.display === "block") {
+                profileDropdownContent.style.display = "none";
+            } else {
+                profileDropdownContent.style.display = "block";
+                // Close activity dropdown if it's open
+                activityDropdownContent.style.display = "none";
+            }
+        }
+        function showTable(data) {
+            console.log("showTable function called."); // Debugging statement
+
+            // Ensure data is received and print it for debugging
+            console.log("Received data:", data);
+
+            document.getElementById('tableData').innerHTML = '';
+
+            if (data.length === 0) {
+                // No data found message
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 6;
+                cell.textContent = 'No matching data found.';
+                row.appendChild(cell);
+                document.getElementById('tableData').appendChild(row);
+                return;
+            }
+
+            // Build table rows from data
+            data.forEach((doc, index) => {
+                const row = document.createElement('tr');
+                const srNoCell = document.createElement('td');
+                srNoCell.textContent = index + 1;
+                row.appendChild(srNoCell);
+
+                // ... create cells for other data fields ...
+
+                const logDetailsCell = document.createElement('td');
+                const logDetailsLink = document.createElement('a');
+                logDetailsLink.href = 'log_details.html'; // Update link if needed
+                logDetailsLink.textContent = 'Log Details';
+                logDetailsCell.appendChild(logDetailsLink);
+                row.appendChild(logDetailsCell);
+
+                document.getElementById('tableData').appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

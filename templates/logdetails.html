@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3e5f5;
+        }
+        table {
+            width: 90%;
+            margin-top: 5%;
+            border-collapse: collapse;
+            margin-left: 4%;
+        }
+        .nav-links {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            position: relative;
+        }
+        .cancel-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ff5252;
+            cursor: pointer;
+        }
+        h1 {
+            color: white;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4285f4;
+            color: white;
+        }
+        .mobile-logo{
+            display: none;
+        }
+        td.done {
+            /* Targeting the 'Done' text */
+            color: green;
+        }
+        .heading-container {
+            background-image: url("static/picture.jpg");
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            padding: 20px;
+            text-align: center;
+
+        }
+
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+
+        @media screen and (max-width: 600px) {
+            .heading-container {
+                background-image: none; /* Remove background image */
+                background-color: #0D47A1;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 999;
+            }
+            .cancel-icon {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                color: #ff5252;
+                cursor: pointer;
+                z-index: 999;
+            }
+            .table-container {
+                overflow-x: auto; /* Enable horizontal scroll */
+                width: 100%;
+                max-width: 90%; /* Adjust maximum width as needed */
+                margin-top: 180px; /* Adjust top margin */
+                margin-left: 4%; /* Adjust left margin */
+            }
+            .mobile-logo {
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                width: 70px; /* Adjust width as needed */
+                height: auto; /* Maintain aspect ratio */
+            }
+            .desktop-logo{
+                display: none;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Logo" class="mobile-logo">
+        <h1> Audit Details  </h1>
+        <div class="all">
+            <div class="nav-links">
+                <a href="/welcomeadmin">Home</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>SiteID</th>
+                    <th>Sector</th>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item['SiteID'] }}</td>
+                    <td>{{ item['Sector'] }}</td>
+                    <td>{{ item['Field'] }}</td>
+                    <td>{{ item['Type'] }}</td>
+                    <td>{{ item['Status'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>

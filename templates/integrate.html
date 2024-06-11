@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Selection Form</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3e5f5;
+    }
+
+    .form-container {
+        margin-top: 3%;
+        max-width: 400px;
+        margin-left: 35%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #e0e0e0;
+    }
+    .nav-links {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .nav-links a {
+        margin-left: 20px;
+        color: white;
+        text-decoration: none;
+    }
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        right: 0;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown-content a {
+        color: blue; /* Change color to blue */
+        display: block;
+       padding: 10px;
+        text-decoration: none;
+    }
+    .dropdown-content a:hover {
+        background-color: #f0f0f0; /* Hover background color */
+    }
+    .table-container {
+        padding: 20px;
+    }
+    .dropdown {
+        width: 100%;
+        padding: 8px 12px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .calendar-icon {
+        margin-right: 10px;
+        color: #555;
+    }
+    .date-input {
+        width: 100%;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #4285f4;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      margin-top: 5%;
+      cursor: pointer;
+      background-color: #1976d2;
+      color: #333333;
+      border: none;
+      border-radius: 25px;
+  }
+  h1{
+color: white;
+  }
+
+  button:hover {
+      background-color: #1565c0;
+  }
+  .logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 90px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+  .heading-container {
+    background-image: url("static/bluewhite.jpg");
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    padding: 20px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+    <div class="heading-container">
+        <img src="static/logo_light.png" alt="Logo" class="logo">
+        <h1>Task Status</h1>
+        <div class="all">
+            <div class="nav-links">
+                <div class="dropdown" onclick="toggleActivityDropdown()">
+                    <a href="#" class="dropbtn">Activity</a>
+                    <!-- Adding sub-options under "Activity" -->
+                    <div class="dropdown-content" id="activityDropdownContent">
+                        <a href="projectallocation.html">Task Allocation</a>
+                        <a href="TaskStatus.html">Task Status</a>
+                    </div>
+                </div>
+                <div class="dropdown" onclick="toggleProfileDropdown()">
+                    <a href="#" class="dropbtn">Profile</a>
+                    <div class="dropdown-content" id="profileDropdownContent">
+                        <a href="Admindetail.html">My Details</a>
+                        <a href="ChangePass.html">Change Password</a>
+                        <a href="welcome.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<form method="POST" id="statusForm">
+
+    <div class="form-container">
+        <label for="circle1">Select Task Status:</label>
+        <select name="circle1" id="circle1" class="dropdown">
+            <option value="Select Circle">-- Select Status --</option>
+            <option value="Completed Task">Completed Task</option>
+            <option value="Pending Task">Pending Task</option>
+        </select>
+
+        <label for="circle">Select Circle:</label>
+        <select id="circle" name="circle" class="dropdown">
+            <option value="Select Circle">-- Select Circle --</option>
+            <option value="MP(Madhya Pradesh)">MP(Madhya Pradesh)</option>
+            <option value="UPW(UP West)">UPW(UP West)</option>
+            <option value="UPE(UP East)">UPE(UP East)</option>
+            <option value="RJ(Rajasthan)">RJ(Rajasthan)</option>
+            <option value="GUJ(Gujarat)">GUJ(Gujarat)</option>
+            <option value="MH(Maharashtra)">MH(Maharashtra)</option>
+            <option value="Bihar">Bihar</option>
+            <option value="ROB(Rest of Bengal)">ROB(Rest of Bengal)</option>
+            <option value="PNB(Punjab)">PNB(Punjab)</option>
+            <option value="KTK(Karnataka)">KTK(Karnataka)</option>
+            <option value="MUM(Mumbai)">MUM(Mumbai)</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Jharkhand(JH)">JH(Jharkhand)</option>
+            <option value="Kolkata(KOC)">Kolkata(KOC)</option>
+            <option value="HimachalPradesh(HP)">HimachalPradesh(HP)</option>
+            <option value="HR(Haryana)">HR(Haryana)</option>
+            <option value="AP(Andhra Pradesh)">AP(Andhra Pradesh)</option>
+            <option value="ROTN(Rest of Tamil Nadu)">ROTN(Rest of Tamil Nadu)</option>
+            <option value="KE(Kerala)">KE(Kerala)</option>
+        </select>
+        <div class="date-container">
+          <label for="fromDate"> Date:</label>
+            <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span>
+            <input type="date" class="date-input" id="fromDate" name="fromDate" placeholder=" Date">
+        </div>
+        <br>
+        <div class="date-container">
+          <label for="toDate"> Date:</label>
+            <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span>
+            <input type="date" class="date-input" id="toDate" name="toDate" placeholder="To Date">
+        </div>
+
+        <button onclick="showTable()">Submit</button>
+    </div>
+
+    <div class="table-container" id="table-container">
+        <table >
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Project</th>
+                    <th>Site Code</th>
+                    <th>Employee</th>
+                    <th>Completed Date</th>
+                    <th>Log Details</th>
+                </tr>
+            </thead>
+            <tbody id="tableData">
+
+                    {% for row in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row.project }}</td>
+                <td>{{ row.sitecode }}</td>
+                <td>{{ row.employee }}</td>
+                <td>{{ row.completedate }}</td>
+                <td><a href="logdetails.html">Log Details</a></td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</form>
+
+    <script>
+        function toggleActivityDropdown() {
+            var activityDropdownContent = document.getElementById("activityDropdownContent");
+            var profileDropdownContent = document.getElementById("profileDropdownContent");
+            if (activityDropdownContent.style.display === "block") {
+                activityDropdownContent.style.display = "none";
+            } else {
+                activityDropdownContent.style.display = "block";
+                // Close profile dropdown if it's open
+                profileDropdownContent.style.display = "none";
+            }
+        }
+
+        function toggleProfileDropdown() {
+            var profileDropdownContent = document.getElementById("profileDropdownContent");
+            var activityDropdownContent = document.getElementById("activityDropdownContent");
+            if (profileDropdownContent.style.display === "block") {
+                profileDropdownContent.style.display = "none";
+            } else {
+                profileDropdownContent.style.display = "block";
+                // Close activity dropdown if it's open
+                activityDropdownContent.style.display = "none";
+            }
+        }
+        function showTable(data) {
+            console.log("showTable function called."); // Debugging statement
+
+            // Ensure data is received and print it for debugging
+            console.log("Received data:", data);
+
+            document.getElementById('tableData').innerHTML = '';
+
+            if (data.length === 0) {
+                // No data found message
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 6;
+                cell.textContent = 'No matching data found.';
+                row.appendChild(cell);
+                document.getElementById('tableData').appendChild(row);
+                return;
+            }
+
+            // Build table rows from data
+            data.forEach((doc, index) => {
+                const row = document.createElement('tr');
+                const srNoCell = document.createElement('td');
+                srNoCell.textContent = index + 1;
+                row.appendChild(srNoCell);
+
+                // ... create cells for other data fields ...
+
+                const logDetailsCell = document.createElement('td');
+                const logDetailsLink = document.createElement('a');
+                logDetailsLink.href = 'logdetails.html'; // Update link if needed
+                logDetailsLink.textContent = 'Log Details';
+                logDetailsCell.appendChild(logDetailsLink);
+                row.appendChild(logDetailsCell);
+
+                document.getElementById('tableData').appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

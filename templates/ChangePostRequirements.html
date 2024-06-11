@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Post Requirements</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="{{ url_for('static', filename='../static/favicon_io_main/favicon.ico') }}" type="image/x-icon">
+    <style>
+        .center-container {
+            margin: 50px auto;
+            max-width: 500px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .heading-container {
+            background-image: url("static/picture.jpg");
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            padding: 20px;
+            text-align: center;
+        }
+        .nav-links {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 50%;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 20px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff; 
+            border: 1px solid #64b5f6; 
+            border-radius: 5px; 
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+            min-width: 160px;
+            z-index: 1;
+            right: 0;
+        }
+        .dropdown-content a {
+            color: #333333; 
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1; 
+        }
+        .desktop-logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 90px; 
+            height: auto; 
+        }
+        .form-container {
+            max-width: 600px; 
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"] {
+            width: calc(100% - 100px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-group .value {
+            display: inline-block;
+            width: calc(100% - 120px); 
+            padding: 8px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        h1{
+            color: white;
+        }
+        .web-heading {
+            display: block; 
+        }
+        .mobile-heading {
+            display: none; 
+        }
+        .mobile-logo{
+            display: none;
+        }
+        .desktop-logo{
+            display: block;
+        }
+        h2{
+            color: white;
+        }
+        @media screen and (max-width: 600px) {
+            .heading-container {
+                background-image: none; 
+            }
+            span#name.value {
+                width: 90%;
+            }
+              span#admin.value {
+                width: 90%;
+              }
+              span#vendor.value {
+                width: 90%;
+              }
+              span#circle.value {
+                width: 90%;
+              }
+              span#email.value {
+                width: 90%;
+            }
+            button {
+    
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #1976d2;
+                color: #333333;
+                border: none;
+                border-radius: 25px;
+                display: inline-block; 
+                width: auto; 
+                margin: 10px; 
+                margin-top: 10%; 
+                margin-left: 15%; 
+            }
+    
+            .mobile-heading {
+                font-size: 16px; 
+            }
+            .web-heading {
+                display: none; 
+            }
+            .mobile-logo {
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: 10px;
+                width: 75px; 
+                height: auto; 
+            }
+            .desktop-logo{
+                display: none;
+            }
+            .mobile-heading {
+                display: block; 
+            }
+            .mobile-heading {
+                font-family: sans-serif;
+                font-size: 30px; 
+                font-weight: bold;
+                display: inline-block;
+                padding: 0px 5px;
+                border-radius: 10px;
+                animation: back 20s linear infinite;
+            }
+            .mobile-heading::before {
+                content: attr(REFL-TEXT);
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: rotateX(180deg);
+                line-height: 52px;
+            }
+            button span.arrow-icon {
+                vertical-align: middle; 
+                margin-left: 5px; 
+            }
+            button::after {
+                content: '\00a0'; 
+            }
+            .heading-container {
+                background-image: none;
+                background-color: #0D47A1;
+                padding: 0px;
+                text-align: center;
+                margin-bottom: 10px;
+                position: relative;
+            }
+            h4{
+                color: white;
+            }
+            .form-container{
+                width: 80%; 
+                margin: 0 auto; 
+                margin-top: 10%;
+            }
+            .form-group{
+                width: 100%;
+            }
+    </style>
+</head>
+<body>
+    <div class="heading-container">
+        <img src=" static/logo_light.png" alt="Desktop Logo" class="desktop-logo">
+        <img src="static/logotry.png" alt="Mobile Logo" class="mobile-logo">
+        <h2 class="web-heading">Change Post Requirements</h2>
+        <h4 class="mobile-heading">Change Post Requirements</h4>
+    </div>
+    
+    <div class="all">
+        <div class="nav-links">
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="./welcomeadmin">Home</a>"
+            </div>
+        </div>
+    </div>
+
+    <div class="center-container">
+        <form id="editForm">
+            <div class="form-group">
+                <label for="siteId">Site ID</label>
+                <input type="text" class="form-control" id="siteId" name="siteId" placeholder="Enter Site ID">
+            </div>
+            <div class="form-group">
+                <label for="sector">Select Sector</label>
+                <select class="form-control" id="sector" name="sector" style="width: calc(100% - 100px);">
+                    <option value="sector1">sector1</option>
+                    <option value="sector2">sector2</option>
+                    <option value="sector3">sector3</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" onclick="fetchData()">Edit</button>
+                <button type="button" class="btn btn-danger ml-2" onclick="confirmDelete()">Delete</button>
+            </div>
+            <hr>
+            <div id="fields" style="display: none;">
+                <div class="form-group">
+                    <label for="azimuth">Azimuth</label>
+                    <input type="text" class="form-control" id="azimuth" placeholder="Azimuth">
+                </div>
+                <div class="form-group">
+                    <label for="electricalCell">Electrical Cell</label>
+                    <input type="text" class="form-control" id="electricalCell" placeholder="Electrical Cell">
+                </div>
+                <div class="form-group">
+                    <label for="mechanicalCell">Mechanical Cell</label>
+                    <input type="text" class="form-control" id="mechanicalCell" placeholder="Mechanical Cell">
+                </div>
+                <div class="form-group">
+                    <label for="poleTilt">Pole Tilt</label>
+                    <input type="text" class="form-control" id="poleTilt" placeholder="Pole Tilt">
+                </div>
+                <div class="form-group">
+                    <label for="towerHeight">Tower Height</label>
+                    <input type="text" class="form-control" id="towerHeight" placeholder="Tower Height">
+                </div>
+                <div class="form-group">
+                    <label for="antennaheight">Antenna Height</label>
+                    <input type="text" class="form-control" id="antennaHeight" placeholder="Antenna Height">
+                </div>
+                <div class="form-group">
+                    <label for="buildingheight">Building Height</label>
+                    <input type="text" class="form-control" id="buildingheight" placeholder="Building Height">
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="updateData()">Update</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.reload();" style="background-color: red;">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Optional: JavaScript for Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script>
+        function fetchData() {
+            const siteId = document.getElementById('siteId').value;
+            const sector = document.getElementById('sector').value;
+    
+            // Check if siteId is empty
+            if (!siteId) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please enter a Site ID',
+                    icon: 'error'
+                });
+                return; // Stop further execution
+            }
+    
+            // Make an AJAX GET request to Flask backend to fetch data
+            fetch(`/fetch_and_update_data?site_id=${siteId}&sector=${sector}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Check if no data is returned (siteId not found)
+                    if (data.error) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.error,
+                            icon: 'error'
+                        });
+                        // Clear form fields
+                        clearFormFields();
+                        // Hide the form
+                        document.getElementById('fields').style.display = 'none';
+                    } else {
+                        // Populate form fields with fetched data
+                        populateFormFields(data);
+                        // Show the form with fetched data
+                        document.getElementById('fields').style.display = 'block';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    
+        function populateFormFields(data) {
+            document.getElementById('azimuth').value = data.azimuth || '';
+            document.getElementById('electricalCell').value = data.electrical_cell || '';
+            document.getElementById('mechanicalCell').value = data.mechanical_cell || '';
+            document.getElementById('poleTilt').value = data.pole_tilt || '';
+            document.getElementById('towerHeight').value = data.tower_height || '';
+            document.getElementById('antennaHeight').value = data.antenna_height || '';
+            document.getElementById('buildingheight').value = data.building_height || '';
+        }
+    
+        function clearFormFields() {
+            document.getElementById('azimuth').value = '';
+            document.getElementById('electricalCell').value = '';
+            document.getElementById('mechanicalCell').value = '';
+            document.getElementById('poleTilt').value = '';
+            document.getElementById('towerHeight').value = '';
+            document.getElementById('antennaHeight').value = '';
+            document.getElementById('buildingheight').value = '';
+        }
+    
+        function updateData() {
+            const siteId = document.getElementById('siteId').value;
+            const sector = document.getElementById('sector').value;
+            const azimuth = document.getElementById('azimuth').value;
+            const electricalCell = document.getElementById('electricalCell').value;
+            const mechanicalCell = document.getElementById('mechanicalCell').value;
+            const poleTilt = document.getElementById('poleTilt').value;
+            const towerHeight = document.getElementById('towerHeight').value;
+            const antennaHeight = document.getElementById('antennaHeight').value;
+            const buildingheight = document.getElementById('buildingheight').value;
+    
+            // Make an AJAX POST request to Flask backend to update data
+            fetch('/fetch_and_update_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `site_id=${siteId}&sector=${sector}&azimuth=${azimuth}&electrical_cell=${electricalCell}&mechanical_cell=${mechanicalCell}&pole_tilt=${poleTilt}&tower_height=${towerHeight}&antenna_height=${antennaHeight}&building_height=${buildingheight}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.message === "Data updated successfully") {
+                    Swal.fire({
+                        title: 'Success',
+                        text: data.message,
+                        icon: 'success'
+                    });
+                } else {
+                    // If response is not valid JSON, display an error alert
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An unexpected error occurred. Please try again later.',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                // If an error occurs during the fetch request, display an error alert
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Incorrect siteId!! Register values on Upload Post Data',
+                    icon: 'error'
+                });
+            });
+        }
+    
+        function confirmDelete() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this record!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If user confirms deletion, proceed with deleteRecord function
+                    deleteRecord();
+                }
+            });
+        }
+    
+        function deleteRecord() {
+            const siteId = document.getElementById('siteId').value;
+            const sector = document.getElementById('sector').value;
+    
+            // Make an AJAX POST request to Flask endpoint to delete the record
+            fetch('/delete_record', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    site_code: siteId, // Adjusted field name to match the server expectation
+                    sector: sector
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: data.error,
+                        icon: 'error'
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Success',
+                        text: data.message,
+                        icon: 'success'
+                    });
+                }
+            })
+            .catch(error => {
+                // Show error message if deletion fails
+                Swal.fire({
+                    title: 'Error',
+                    text: 'An error occurred while deleting the record. Please try again later.',
+                    icon: 'error'
+                });
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+    
+</body>
+</html>
