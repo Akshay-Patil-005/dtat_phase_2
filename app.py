@@ -42,31 +42,11 @@ employeeName = ""
 azimuth =""
 
 # Initialize Firebase
-firebaseConfig = {
-    "apiKey": "AIzaSyBiZWWI4vdWhNjwK1547w6dRHKBVZ9it24",
-    "authDomain": "telecom-tower-performance-1.firebaseapp.com",
-    "databaseURL": "https://telecom-tower-performance-1-default-rtdb.firebaseio.com",
-    "projectId": "telecom-tower-performance-1",
-    "storageBucket": "telecom-tower-performance-1.appspot.com",
-    "messagingSenderId": "681536968586",
-    "appId": "1:681536968586:web:82ebaf8bbc7a17e0191a73",
-    "measurementId": "G-VP8S76MR98"
-}
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 
 # Initialize Firebase Admin SDK with credentials
-cred = credentials.Certificate("telecom-tower-performance-1-firebase-adminsdk-76b3k-265f93b36b.json")
-firebase_admin.initialize_app(cred, {
-    "apiKey": "AIzaSyBiZWWI4vdWhNjwK1547w6dRHKBVZ9it24",
-    "authDomain": "telecom-tower-performance-1.firebaseapp.com",
-    "databaseURL": "https://telecom-tower-performance-1-default-rtdb.firebaseio.com",
-    "projectId": "telecom-tower-performance-1",
-    "storageBucket": "telecom-tower-performance-1.appspot.com",
-    "messagingSenderId": "681536968586",
-    "appId": "1:681536968586:web:82ebaf8bbc7a17e0191a73",
-    "measurementId": "G-VP8S76MR98"
-})
+
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "visionAPIKey.json"
 
